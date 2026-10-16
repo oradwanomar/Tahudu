@@ -23,6 +23,7 @@ xcuserdata/
 
 # Xcode build artifacts
 build/
+.build/
 DerivedData/
 
 # Obj-C/Swift specific

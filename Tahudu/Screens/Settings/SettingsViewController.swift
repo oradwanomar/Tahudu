@@ -1,4 +1,4 @@
-// 
+//
 //  SettingsViewController.swift
 //  Tahudu
 //
@@ -38,7 +38,8 @@ class SettingsViewController: UITableViewController {
                 cell.textLabel?.text = "Language"
                 cell.textLabel?.textColor = .label
                 cell.textLabel?.textAlignment = .natural
-                cell.detailTextLabel?.text = Locale.current.localizedString(forLanguageCode: Bundle.main.preferredLocalizations.first!)
+                let languageCode = Bundle.main.preferredLocalizations.first ?? Locale.current.languageCode ?? "en"
+                cell.detailTextLabel?.text = Locale.current.localizedString(forLanguageCode: languageCode)
                 cell.detailTextLabel?.textColor = .secondaryLabel
                 return cell
             } else if indexPath.row == 1 {

@@ -1,0 +1,3 @@
+--swiftversion 5.0
+--disable docComments,fileHeader,wrapMultilineStatementBraces
+--exclude .build,build,DerivedData

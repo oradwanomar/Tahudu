@@ -202,6 +202,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F479BC626EF162400F863AC /* Build configuration list for PBXNativeTarget "Tahudu" */;
 			buildPhases = (
+				A6B031E02F8A000100000002 /* SwiftFormat */,
 				1F479B9E26EF162000F863AC /* Sources */,
 				1F479B9F26EF162000F863AC /* Frameworks */,
 				1F479BA026EF162000F863AC /* Resources */,
@@ -289,6 +290,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A6B031E02F8A000100000002 /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/.githooks/swiftformat.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1F479B9E26EF162000F863AC /* Sources */ = {

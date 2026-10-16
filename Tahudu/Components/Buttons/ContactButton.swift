@@ -37,9 +37,9 @@ struct ContactButton: View {
     // MARK: - Body
 
     var body: some View {
-        Button(action: self.action) {
+        Button(action: action) {
             Image(imageSystemName: type.imageSystemNameFilled, imageName: type.imageNameFilled)
         }
-        .buttonStyle(ContactButtonStyle(type: self.type))
+        .buttonStyle(ContactButtonStyle(type: type))
     }
 }

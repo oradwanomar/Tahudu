@@ -6,8 +6,8 @@
 import SwiftUI
 
 struct SettingsView: UIViewControllerRepresentable {
-    func makeUIViewController(context: Context) -> UINavigationController {
-        let settingsViewController = SettingsViewController.init(style: .insetGrouped)
+    func makeUIViewController(context _: Context) -> UINavigationController {
+        let settingsViewController = SettingsViewController(style: .insetGrouped)
         settingsViewController.title = "My Account"
 
         let navigatoinController = UINavigationController(rootViewController: settingsViewController)
@@ -15,7 +15,7 @@ struct SettingsView: UIViewControllerRepresentable {
         return navigatoinController
     }
 
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
+    func updateUIViewController(_: UINavigationController, context _: Context) {
         // Nothing here
     }
 }
