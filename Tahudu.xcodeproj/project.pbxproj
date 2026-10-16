@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A6B031E12F8A000100000001 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E32F8A000100000001 /* Networking */; };
 		1F479BA626EF162000F863AC /* TahuduApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BA526EF162000F863AC /* TahuduApp.swift */; };
 		1F479BAA26EF162400F863AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F479BA926EF162400F863AC /* Assets.xcassets */; };
 		1F479BAD26EF162400F863AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F479BAC26EF162400F863AC /* Preview Assets.xcassets */; };
@@ -56,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6B031E12F8A000100000001 /* Networking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +216,9 @@
 			name = Tahudu;
 			productName = Tahudu;
 			productReference = 1F479BA226EF162000F863AC /* Tahudu.app */;
+			packageProductDependencies = (
+				A6B031E32F8A000100000001 /* Networking */,
+			);
 			productType = "com.apple.product-type.application";
 		};
 		1F479BB126EF162400F863AC /* TahuduTests */ = {
@@ -262,6 +267,9 @@
 				Base,
 			);
 			mainGroup = 1F479B9926EF162000F863AC;
+			packageReferences = (
+				A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Networking" */,
+			);
 			productRefGroup = 1F479BA326EF162000F863AC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -603,6 +611,21 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Networking" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Networking;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A6B031E32F8A000100000001 /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Networking" */;
+			productName = Networking;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1F479B9A26EF162000F863AC /* Project object */;
 }
