@@ -1,12 +1,6 @@
-//
-//  ContactType.swift
-//  Tahudu
-//
-
 import SwiftUI
 
-/// Represents the various contact types
-enum ContactType {
+public enum ContactType {
     case phone
     case email
     case whatsApp
@@ -22,7 +16,7 @@ enum ContactType {
     }
 
     var imageNameFilled: String? {
-        imageName?.filled
+        imageName.map { $0 + ".fill" }
     }
 
     var imageSystemName: String? {
@@ -39,22 +33,15 @@ enum ContactType {
     }
 
     var imageSystemNameFilled: String? {
-        imageSystemName?.filled
+        imageSystemName.map { $0 + ".fill" }
     }
 
     var backgroundColor: Color {
         switch self {
         case .phone, .email, .sms:
-            return .brand
+            return DSColor.brand
         case .whatsApp:
-            return .whatsApp
+            return DSColor.whatsApp
         }
-    }
-}
-
-private extension String {
-    /// Appends '.fill' to the given string. Useful for (Custom) SF Symbols.
-    var filled: String {
-        self + ".fill"
     }
 }

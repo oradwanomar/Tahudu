@@ -3,6 +3,7 @@
 //  Tahudu
 //
 
+import DesignSystem
 import Foundation
 import UIKit
 
@@ -12,7 +13,7 @@ class SettingsViewController: UITableViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = .systemGroupedBackground
+        tableView.backgroundColor = DSUIColor.groupedBackground
         tableView.tableFooterView = UIView()
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingsCell")
@@ -31,39 +32,39 @@ class SettingsViewController: UITableViewController {
             if indexPath.row == 0 {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
                 cell.accessibilityIdentifier = "SettingsCell_language"
-                cell.backgroundColor = .systemBackground
+                cell.backgroundColor = DSUIColor.background
                 cell.selectionStyle = .default
                 cell.accessoryType = .disclosureIndicator
                 cell.imageView?.image = UIImage(systemName: "textformat")
                 cell.textLabel?.text = "Language"
-                cell.textLabel?.textColor = .label
+                cell.textLabel?.textColor = DSUIColor.primaryText
                 cell.textLabel?.textAlignment = .natural
                 let languageCode = Bundle.main.preferredLocalizations.first ?? Locale.current.languageCode ?? "en"
                 cell.detailTextLabel?.text = Locale.current.localizedString(forLanguageCode: languageCode)
-                cell.detailTextLabel?.textColor = .secondaryLabel
+                cell.detailTextLabel?.textColor = DSUIColor.secondaryText
                 return cell
             } else if indexPath.row == 1 {
                 let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
                 cell.accessibilityIdentifier = "SettingsCell_country"
-                cell.backgroundColor = .systemBackground
+                cell.backgroundColor = DSUIColor.background
                 cell.selectionStyle = .default
                 cell.accessoryType = .disclosureIndicator
                 cell.imageView?.image = UIImage(systemName: "globe")
                 cell.textLabel?.text = "Country"
-                cell.textLabel?.textColor = .label
+                cell.textLabel?.textColor = DSUIColor.primaryText
                 cell.textLabel?.textAlignment = .natural
                 cell.detailTextLabel?.text = "United Arab Emirates"
-                cell.detailTextLabel?.textColor = .secondaryLabel
+                cell.detailTextLabel?.textColor = DSUIColor.secondaryText
                 return cell
             } else if indexPath.row == 2 {
                 let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
                 cell.accessibilityIdentifier = "SettingsCell_notifications"
-                cell.backgroundColor = .systemBackground
+                cell.backgroundColor = DSUIColor.background
                 cell.selectionStyle = .default
                 cell.accessoryType = .disclosureIndicator
                 cell.imageView?.image = UIImage(systemName: "app.badge")
                 cell.textLabel?.text = "Notifications"
-                cell.textLabel?.textColor = .label
+                cell.textLabel?.textColor = DSUIColor.primaryText
                 cell.textLabel?.textAlignment = .natural
                 return cell
             }
@@ -71,23 +72,23 @@ class SettingsViewController: UITableViewController {
             if indexPath.row == 0 {
                 let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
                 cell.accessibilityIdentifier = "SettingsCell_about"
-                cell.backgroundColor = .systemBackground
+                cell.backgroundColor = DSUIColor.background
                 cell.selectionStyle = .default
                 cell.accessoryType = .disclosureIndicator
                 cell.imageView?.image = UIImage(systemName: "info.circle")
                 cell.textLabel?.text = "About"
-                cell.textLabel?.textColor = .label
+                cell.textLabel?.textColor = DSUIColor.primaryText
                 cell.textLabel?.textAlignment = .natural
                 return cell
             } else if indexPath.row == 1 {
                 let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
                 cell.accessibilityIdentifier = "SettnigsCell_feedback"
-                cell.backgroundColor = .systemBackground
+                cell.backgroundColor = DSUIColor.background
                 cell.selectionStyle = .default
                 cell.accessoryType = .disclosureIndicator
                 cell.imageView?.image = UIImage(systemName: "text.bubble")
                 cell.textLabel?.text = "Feedback"
-                cell.textLabel?.textColor = .label
+                cell.textLabel?.textColor = DSUIColor.primaryText
                 cell.textLabel?.textAlignment = .natural
                 return cell
             }

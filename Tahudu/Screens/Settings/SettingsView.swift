@@ -3,6 +3,7 @@
 //  Tahudu
 //
 
+import DesignSystem
 import SwiftUI
 
 struct SettingsView: UIViewControllerRepresentable {
@@ -10,9 +11,10 @@ struct SettingsView: UIViewControllerRepresentable {
         let settingsViewController = SettingsViewController(style: .insetGrouped)
         settingsViewController.title = "My Account"
 
-        let navigatoinController = UINavigationController(rootViewController: settingsViewController)
-        navigatoinController.navigationBar.prefersLargeTitles = true
-        return navigatoinController
+        let navigationController = UINavigationController(rootViewController: settingsViewController)
+        navigationController.navigationBar.prefersLargeTitles = true
+        navigationController.view.tintColor = DSUIColor.accent
+        return navigationController
     }
 
     func updateUIViewController(_: UINavigationController, context _: Context) {
