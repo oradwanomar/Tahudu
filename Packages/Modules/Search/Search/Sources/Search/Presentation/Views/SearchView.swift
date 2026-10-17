@@ -22,9 +22,18 @@ public struct SearchView<Model: SearchViewModelProtocol>: View {
                     dismissKeyboard()
                     viewModel.logAction("search_filter_tapped", listingID: nil)
                 },
-                onSort: {
+                sortByLatest: viewModel.sortOrder == .latest,
+                onSortLatest: {
                     dismissKeyboard()
-                    viewModel.logAction("search_sort_tapped", listingID: nil)
+                    withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.35)) {
+                        viewModel.setSortOrder(.latest)
+                    }
+                },
+                onSortEarliest: {
+                    dismissKeyboard()
+                    withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.35)) {
+                        viewModel.setSortOrder(.earliest)
+                    }
                 },
                 onFavorites: {
                     dismissKeyboard()

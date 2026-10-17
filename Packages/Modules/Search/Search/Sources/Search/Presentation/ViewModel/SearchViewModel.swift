@@ -6,9 +6,10 @@ import Foundation
 public final class SearchViewModel: SearchViewModelProtocol {
     @Published public private(set) var state: SearchLoadState = .idle
     @Published public private(set) var listings: [ListingDisplayModel] = []
+    @Published public private(set) var sortOrder: ListingSortOrder = .latest
     @Published public var searchText = "" {
         didSet {
-            listings = useCase.search(allListings, query: searchText)
+            updateListings()
         }
     }
 
@@ -34,7 +35,7 @@ public final class SearchViewModel: SearchViewModelProtocol {
             let result = try await useCase.fetchListings()
             try Task.checkCancellation()
             allListings = result
-            listings = useCase.search(result, query: searchText)
+            updateListings()
             hasLoaded = true
             state = .loaded
             print("Showing \(listings.count) listings")
@@ -58,6 +59,23 @@ public final class SearchViewModel: SearchViewModelProtocol {
     public func submitSearch() {
         print("Searching for \(searchText)")
         analytics.trackEvent(AnalyticsEvent(name: "search_submitted", parameters: ["query": searchText]))
+    }
+
+    public func setSortOrder(_ order: ListingSortOrder) {
+        guard sortOrder != order else { return }
+        sortOrder = order
+        updateListings()
+        logAction("search_sort_selected_\(order.rawValue)", listingID: nil)
+    }
+
+    private func updateListings() {
+        let filtered = useCase.search(allListings, query: searchText)
+        switch sortOrder {
+        case .latest:
+            listings = filtered.sorted { $0.publishedAt > $1.publishedAt }
+        case .earliest:
+            listings = filtered.sorted { $0.publishedAt < $1.publishedAt }
+        }
     }
 
     public func logAction(_ action: String, listingID: String? = nil) {

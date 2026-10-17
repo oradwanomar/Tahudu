@@ -39,6 +39,35 @@ import Testing
 }
 
 @MainActor
+@Test func viewModelSortsByPublicationDateAndKeepsOrderWhileSearching() async {
+    let analytics = AnalyticsEventTrackerMock()
+    let viewModel = SearchViewModel(
+        useCase: SearchUseCase(repository: ListingRepositoryStub(listings: testListings)),
+        analytics: analytics
+    )
+
+    await viewModel.load()
+    #expect(viewModel.listings.map(\.id) == ["two", "one"])
+
+    viewModel.setSortOrder(.earliest)
+    #expect(viewModel.listings.map(\.id) == ["one", "two"])
+
+    viewModel.searchText = "Dubai"
+    #expect(viewModel.listings.map(\.id) == ["two"])
+
+    viewModel.searchText = ""
+    #expect(viewModel.listings.map(\.id) == ["one", "two"])
+
+    viewModel.setSortOrder(.latest)
+    #expect(viewModel.listings.map(\.id) == ["two", "one"])
+    #expect(analytics.trackedEvents.map(\.name) == [
+        "search_listings_loaded",
+        "search_sort_selected_earliest",
+        "search_sort_selected_latest",
+    ])
+}
+
+@MainActor
 @Test func cancellingLoadDoesNotShowAnError() async {
     let analytics = AnalyticsEventTrackerMock()
     let viewModel = SearchViewModel(

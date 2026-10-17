@@ -50,6 +50,7 @@ public struct SearchUseCase: SearchUseCaseProtocol {
             bathroomText: "\(listing.bathrooms) Baths",
             areaText: "\(listing.areaSqft) sqft",
             publishedText: "Published \(relativeDateFormatter.localizedString(for: listing.publishedAt, relativeTo: now))",
+            publishedAt: listing.publishedAt,
             lastContactedText: listing.lastContactedAt.map { "Last contacted: \(dateFormatter.string(from: $0))" },
             tags: listing.tags.map {
                 ListingTag(

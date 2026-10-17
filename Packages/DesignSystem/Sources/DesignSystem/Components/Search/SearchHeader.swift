@@ -4,20 +4,26 @@ public struct SearchHeader: View {
     @Binding private var text: String
     private let onSubmit: () -> Void
     private let onFilter: () -> Void
-    private let onSort: () -> Void
+    private let sortByLatest: Bool
+    private let onSortLatest: () -> Void
+    private let onSortEarliest: () -> Void
     private let onFavorites: () -> Void
 
     public init(
         text: Binding<String>,
         onSubmit: @escaping () -> Void,
         onFilter: @escaping () -> Void,
-        onSort: @escaping () -> Void,
+        sortByLatest: Bool,
+        onSortLatest: @escaping () -> Void,
+        onSortEarliest: @escaping () -> Void,
         onFavorites: @escaping () -> Void
     ) {
         _text = text
         self.onSubmit = onSubmit
         self.onFilter = onFilter
-        self.onSort = onSort
+        self.sortByLatest = sortByLatest
+        self.onSortLatest = onSortLatest
+        self.onSortEarliest = onSortEarliest
         self.onFavorites = onFavorites
     }
 
@@ -25,7 +31,26 @@ public struct SearchHeader: View {
         VStack(spacing: DSSpacing.medium) {
             HStack(spacing: DSSpacing.medium) {
                 toolbarButton("slider.horizontal.3", label: "Filters", action: onFilter)
-                toolbarButton("arrow.up.arrow.down", label: "Sort", action: onSort)
+                Menu {
+                    Button(action: onSortLatest) {
+                        if sortByLatest {
+                            Label("Latest", systemImage: "checkmark")
+                        } else {
+                            Text("Latest")
+                        }
+                    }
+                    Button(action: onSortEarliest) {
+                        if sortByLatest {
+                            Text("Earliest")
+                        } else {
+                            Label("Earliest", systemImage: "checkmark")
+                        }
+                    }
+                } label: {
+                    toolbarIcon("arrow.up.arrow.down")
+                }
+                .accessibilityLabel("Sort listings")
+                .accessibilityValue(sortByLatest ? "Latest first" : "Earliest first")
                 Spacer()
                 toolbarButton("star", label: "Favorites", action: onFavorites)
             }
@@ -68,13 +93,17 @@ public struct SearchHeader: View {
         action: @escaping () -> Void
     ) -> some View {
         Button(action: action) {
-            Image(systemName: symbol)
-                .font(.title3)
-                .foregroundColor(DSColor.accent)
-                .frame(width: 44, height: 44)
+            toolbarIcon(symbol)
         }
         .accessibilityLabel(label)
         .accessibilityHint("This action will be available in a later update")
+    }
+
+    private func toolbarIcon(_ symbol: String) -> some View {
+        Image(systemName: symbol)
+            .font(.title3)
+            .foregroundColor(DSColor.accent)
+            .frame(width: 44, height: 44)
     }
 }
 

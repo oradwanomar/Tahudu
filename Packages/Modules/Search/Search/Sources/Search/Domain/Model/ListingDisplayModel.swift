@@ -1,3 +1,5 @@
+import Foundation
+
 public struct ListingDisplayModel: Equatable, Identifiable, Sendable {
     public let id: String
     public let type: String
@@ -8,6 +10,7 @@ public struct ListingDisplayModel: Equatable, Identifiable, Sendable {
     public let bathroomText: String
     public let areaText: String
     public let publishedText: String
+    public let publishedAt: Date
     public let lastContactedText: String?
     public let tags: [ListingTag]
     public let imageNames: [String]
@@ -23,6 +26,7 @@ public struct ListingDisplayModel: Equatable, Identifiable, Sendable {
         bathroomText: String,
         areaText: String,
         publishedText: String,
+        publishedAt: Date,
         lastContactedText: String?,
         tags: [ListingTag],
         imageNames: [String],
@@ -37,6 +41,7 @@ public struct ListingDisplayModel: Equatable, Identifiable, Sendable {
         self.bathroomText = bathroomText
         self.areaText = areaText
         self.publishedText = publishedText
+        self.publishedAt = publishedAt
         self.lastContactedText = lastContactedText
         self.tags = tags
         self.imageNames = imageNames
