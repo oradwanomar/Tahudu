@@ -15,8 +15,6 @@
 		1F479BAD26EF162400F863AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F479BAC26EF162400F863AC /* Preview Assets.xcassets */; };
 		1F479BB726EF162400F863AC /* TahuduTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BB626EF162400F863AC /* TahuduTests.swift */; };
 		1F479BD926EF1A9600F863AC /* TahuduTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BD826EF1A9600F863AC /* TahuduTabView.swift */; };
-		1F479BDF26EF1AE600F863AC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BDE26EF1AE600F863AC /* SettingsView.swift */; };
-		1F479BEE26F06FDD00F863AC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BED26F06FDD00F863AC /* SettingsViewController.swift */; };
 		A6B031E42F8A000100000001 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E62F8A000100000001 /* DesignSystem */; };
 		A6B031E72F8A000100000001 /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EB2F8A000100000001 /* Analytics */; };
 		A6B031E82F8A000100000001 /* AnalyticsInterface in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EC2F8A000100000001 /* AnalyticsInterface */; };
@@ -43,9 +41,7 @@
 		1F479BB226EF162400F863AC /* TahuduTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TahuduTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F479BB626EF162400F863AC /* TahuduTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahuduTests.swift; sourceTree = "<group>"; };
 		1F479BD826EF1A9600F863AC /* TahuduTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahuduTabView.swift; sourceTree = "<group>"; };
-		1F479BDE26EF1AE600F863AC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1F479BE026EF1D3B00F863AC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
-		1F479BED26F06FDD00F863AC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A6B031F02F8A000100000001 /* Analytics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Analytics; path = Packages/Analytics; sourceTree = SOURCE_ROOT; };
 		A6B031F12F8A000100000001 /* AnalyticsInterface */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AnalyticsInterface; path = Packages/AnalyticsInterface; sourceTree = SOURCE_ROOT; };
 		A6B031F22F8A000100000001 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DesignSystem; path = Packages/DesignSystem; sourceTree = SOURCE_ROOT; };
@@ -135,7 +131,6 @@
 			isa = PBXGroup;
 			children = (
 				1F479BD026EF17F600F863AC /* Assets */,
-				1F479BD126EF180500F863AC /* Screens */,
 				1F479BAB26EF162400F863AC /* Preview Content */,
 				1F479BA526EF162000F863AC /* TahuduApp.swift */,
 				1F479BD826EF1A9600F863AC /* TahuduTabView.swift */,
@@ -165,23 +160,6 @@
 				1F479BA926EF162400F863AC /* Assets.xcassets */,
 			);
 			path = Assets;
-			sourceTree = "<group>";
-		};
-		1F479BD126EF180500F863AC /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				1F479BDB26EF1AB900F863AC /* Settings */,
-			);
-			path = Screens;
-			sourceTree = "<group>";
-		};
-		1F479BDB26EF1AB900F863AC /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				1F479BDE26EF1AE600F863AC /* SettingsView.swift */,
-				1F479BED26F06FDD00F863AC /* SettingsViewController.swift */,
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		A6B031F42F8A000100000001 /* Packages */ = {
@@ -288,6 +266,7 @@
 				A6B031E52F8A000100000001 /* XCLocalSwiftPackageReference "Packages/DesignSystem" */,
 				A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Networking" */,
 				A6B031F92F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Caching" */,
+				A6B031FA2F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Modules/Settings/Settings" */,
 			);
 			productRefGroup = 1F479BA326EF162000F863AC /* Products */;
 			projectDirPath = "";
@@ -341,10 +320,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F479BDF26EF1AE600F863AC /* SettingsView.swift in Sources */,
 				1F479BA626EF162000F863AC /* TahuduApp.swift in Sources */,
 				1F479BD926EF1A9600F863AC /* TahuduTabView.swift in Sources */,
-				1F479BEE26F06FDD00F863AC /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,6 +625,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Caching;
 		};
+		A6B031FA2F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Modules/Settings/Settings" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Modules/Settings/Settings;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -658,6 +639,7 @@
 		};
 		044076033083B3E200297391 /* Settings */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A6B031FA2F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Modules/Settings/Settings" */;
 			productName = Settings;
 		};
 		044076053083B40600297391 /* Networking */ = {

@@ -10,4 +10,5 @@ public enum DSColor {
     public static let deliveryBackground = Color(red: 0.96, green: 0.96, blue: 0.99)
     public static let lastContactedBackground = Color(red: 1.0, green: 0.91, blue: 0.72)
     public static let skeleton = Color(UIColor.systemGray5)
+    public static let groupedBackground = Color(UIColor.systemGroupedBackground)
 }

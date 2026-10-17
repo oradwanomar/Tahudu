@@ -9,20 +9,19 @@ import Caching
 import DesignSystem
 import Networking
 import Search
+import Settings
 import SwiftUI
 
 struct TahuduTabView: View {
     @State private var selectedTab: Tabs = .search
     private let analytics: any AnalyticsEventTracking
-    private let cache: any CacheManagerProtocol
 
     init(
-        analytics: any AnalyticsEventTracking = AnalyticsEventTracker(),
-        cache: any CacheManagerProtocol = CacheManager()
+        analytics: any AnalyticsEventTracking = AnalyticsEventTracker()
     ) {
         self.analytics = analytics
-        self.cache = cache
         let appearance = UITabBarAppearance()
+        appearance.configureWithTransparentBackground()
         let normalColor = UIColor.lightGray
         let selectedColor = DSUIColor.brand
 
@@ -49,13 +48,13 @@ struct TahuduTabView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            SearchModuleFactory.make(client: APIClient.shared, cache: cache, analytics: analytics)
+            SearchModuleFactory.make(analytics: analytics)
                 .tag(Tabs.search)
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }
 
-            SettingsView()
+            SettingsModuleFactory.make()
                 .tag(Tabs.settings)
                 .tabItem {
                     Label("My Account", systemImage: selectedTab == .settings ? "person.fill" : "person")

@@ -1,2 +1,10 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
+import DesignSystem
+import SwiftUI
+
+@MainActor
+public enum SettingsModuleFactory {
+    public static func make() -> some View {
+        SettingsView(viewModel: SettingsViewModel())
+            .background(DSColor.groupedBackground.ignoresSafeArea())
+    }
+}

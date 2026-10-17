@@ -6,8 +6,8 @@ import SwiftUI
 @MainActor
 public enum SearchModuleFactory {
     public static func make(
-        client: any APIClientProtocol,
-        cache: any CacheManagerProtocol,
+        client: any APIClientProtocol = APIClient.shared,
+        cache: any CacheManagerProtocol = CacheManager(),
         analytics: any AnalyticsEventTracking
     ) -> some View {
         let repository = ListingRepository(client: client, cache: cache)
