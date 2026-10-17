@@ -1,26 +1,31 @@
-// swift-tools-version: 5.9
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version: 6.0
 
 import PackageDescription
 
 let package = Package(
     name: "Search",
+    platforms: [.iOS(.v14)],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
-            name: "Search",
-            targets: ["Search"]
-        ),
+        .library(name: "Search", targets: ["Search"]),
+    ],
+    dependencies: [
+        .package(name: "AnalyticsInterface", path: "../../../AnalyticsInterface"),
+        .package(name: "DesignSystem", path: "../../../DesignSystem"),
+        .package(name: "Networking", path: "../../../Networking"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "Search"
+            name: "Search",
+            dependencies: [
+                .product(name: "AnalyticsInterface", package: "AnalyticsInterface"),
+                .product(name: "DesignSystem", package: "DesignSystem"),
+                .product(name: "Networking", package: "Networking"),
+            ]
         ),
         .testTarget(
             name: "SearchTests",
-            dependencies: ["Search"]
+            dependencies: ["Search", "Networking", "AnalyticsInterface"]
         ),
-    ]
+    ],
+    swiftLanguageModes: [.v5]
 )

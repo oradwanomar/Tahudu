@@ -1,6 +1,4 @@
-//
-//  SearchUseCaseProtocol.swift
-//  Search
-//
-//  Created by O M A R on 17/10/2026.
-//
+public protocol SearchUseCaseProtocol {
+    func fetchListings() async throws -> [Listing]
+    func search(_ listings: [Listing], query: String) -> [Listing]
+}

@@ -5,6 +5,8 @@
 
 import Analytics
 import AnalyticsInterface
+import Networking
+import Search
 import SwiftUI
 
 struct TahuduTabView: View {
@@ -17,7 +19,7 @@ struct TahuduTabView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            SearchView()
+            SearchModuleFactory.make(client: APIClient.shared, analytics: analytics)
                 .tag(Tabs.search.rawValue)
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")

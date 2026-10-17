@@ -15,7 +15,6 @@
 		1F479BAD26EF162400F863AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F479BAC26EF162400F863AC /* Preview Assets.xcassets */; };
 		1F479BB726EF162400F863AC /* TahuduTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BB626EF162400F863AC /* TahuduTests.swift */; };
 		1F479BD926EF1A9600F863AC /* TahuduTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BD826EF1A9600F863AC /* TahuduTabView.swift */; };
-		1F479BDD26EF1AD400F863AC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BDC26EF1AD400F863AC /* SearchView.swift */; };
 		1F479BDF26EF1AE600F863AC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BDE26EF1AE600F863AC /* SettingsView.swift */; };
 		1F479BEE26F06FDD00F863AC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BED26F06FDD00F863AC /* SettingsViewController.swift */; };
 		A6B031E42F8A000100000001 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E62F8A000100000001 /* DesignSystem */; };
@@ -43,7 +42,6 @@
 		1F479BB226EF162400F863AC /* TahuduTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TahuduTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F479BB626EF162400F863AC /* TahuduTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahuduTests.swift; sourceTree = "<group>"; };
 		1F479BD826EF1A9600F863AC /* TahuduTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahuduTabView.swift; sourceTree = "<group>"; };
-		1F479BDC26EF1AD400F863AC /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		1F479BDE26EF1AE600F863AC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1F479BE026EF1D3B00F863AC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		1F479BED26F06FDD00F863AC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -169,18 +167,9 @@
 		1F479BD126EF180500F863AC /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				1F479BDA26EF1AB100F863AC /* Search */,
 				1F479BDB26EF1AB900F863AC /* Settings */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		1F479BDA26EF1AB100F863AC /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				1F479BDC26EF1AD400F863AC /* SearchView.swift */,
-			);
-			path = Search;
 			sourceTree = "<group>";
 		};
 		1F479BDB26EF1AB900F863AC /* Settings */ = {
@@ -288,6 +277,7 @@
 			);
 			mainGroup = 1F479B9926EF162000F863AC;
 			packageReferences = (
+				044076073083B3DD00297391 /* XCLocalSwiftPackageReference "Packages/Modules/Search/Search" */,
 				A6B031E92F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Analytics" */,
 				A6B031EA2F8A000100000001 /* XCLocalSwiftPackageReference "Packages/AnalyticsInterface" */,
 				A6B031E52F8A000100000001 /* XCLocalSwiftPackageReference "Packages/DesignSystem" */,
@@ -345,7 +335,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F479BDD26EF1AD400F863AC /* SearchView.swift in Sources */,
 				1F479BDF26EF1AE600F863AC /* SettingsView.swift in Sources */,
 				1F479BA626EF162000F863AC /* TahuduApp.swift in Sources */,
 				1F479BD926EF1A9600F863AC /* TahuduTabView.swift in Sources */,
@@ -629,6 +618,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		044076073083B3DD00297391 /* XCLocalSwiftPackageReference "Packages/Modules/Search/Search" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Modules/Search/Search;
+		};
 		A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Networking" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Networking;
@@ -650,6 +643,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		044076013083B3DD00297391 /* Search */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = 044076073083B3DD00297391 /* XCLocalSwiftPackageReference "Packages/Modules/Search/Search" */;
 			productName = Search;
 		};
 		044076033083B3E200297391 /* Settings */ = {
