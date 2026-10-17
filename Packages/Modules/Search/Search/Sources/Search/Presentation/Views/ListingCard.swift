@@ -80,6 +80,7 @@ struct ListingCard: View {
             RoundedRectangle(cornerRadius: DSRadius.xLarge)
                 .stroke(DSColor.border, lineWidth: 1)
         )
+        .shadow(color: .black.opacity(0.10), radius: 8, x: 0, y: 4)
     }
 }
 

@@ -3,6 +3,7 @@ import SwiftUI
 
 @MainActor
 public struct SearchView<Model: SearchViewModelProtocol>: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @StateObject private var viewModel: Model
     @State private var loadTask: Task<Void, Never>?
 
@@ -39,8 +40,10 @@ public struct SearchView<Model: SearchViewModelProtocol>: View {
                 .padding(.horizontal, DSSpacing.medium)
                 .padding(.top, DSSpacing.medium)
                 .padding(.bottom, DSSpacing.large)
+                .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: viewModel.state)
+                .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: viewModel.listings.isEmpty)
             }
-            .background(Color(UIColor.systemGroupedBackground))
+            .background(Color(UIColor.systemBackground))
             .simultaneousGesture(TapGesture().onEnded(dismissKeyboard))
         }
         .onAppear {
@@ -61,8 +64,13 @@ public struct SearchView<Model: SearchViewModelProtocol>: View {
     private var content: some View {
         switch viewModel.state {
         case .idle, .loading:
-            ProgressView("Loading properties")
-                .frame(maxWidth: .infinity, minHeight: 200)
+            VStack(spacing: DSSpacing.large) {
+                ForEach(0 ..< 2, id: \.self) { _ in
+                    SearchLoadingCard()
+                }
+            }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Loading properties")
         case let .failed(message):
             SearchMessage(
                 symbol: "wifi.exclamationmark",
@@ -72,6 +80,7 @@ public struct SearchView<Model: SearchViewModelProtocol>: View {
             ) {
                 Task { await viewModel.retry() }
             }
+            .transition(.opacity)
         case .loaded:
             if viewModel.listings.isEmpty {
                 SearchMessage(
@@ -81,6 +90,7 @@ public struct SearchView<Model: SearchViewModelProtocol>: View {
                         ? "There are no properties to show right now."
                         : "Try another city, area, or building."
                 )
+                .transition(.opacity)
             } else {
                 ForEach(viewModel.listings) { listing in
                     ListingCard(listing: listing) { action in

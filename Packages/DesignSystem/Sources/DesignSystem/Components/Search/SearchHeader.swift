@@ -1,14 +1,27 @@
-import DesignSystem
 import SwiftUI
 
-struct SearchHeader: View {
-    @Binding var text: String
-    let onSubmit: () -> Void
-    let onFilter: () -> Void
-    let onSort: () -> Void
-    let onFavorites: () -> Void
+public struct SearchHeader: View {
+    @Binding private var text: String
+    private let onSubmit: () -> Void
+    private let onFilter: () -> Void
+    private let onSort: () -> Void
+    private let onFavorites: () -> Void
 
-    var body: some View {
+    public init(
+        text: Binding<String>,
+        onSubmit: @escaping () -> Void,
+        onFilter: @escaping () -> Void,
+        onSort: @escaping () -> Void,
+        onFavorites: @escaping () -> Void
+    ) {
+        _text = text
+        self.onSubmit = onSubmit
+        self.onFilter = onFilter
+        self.onSort = onSort
+        self.onFavorites = onFavorites
+    }
+
+    public var body: some View {
         VStack(spacing: DSSpacing.medium) {
             HStack(spacing: DSSpacing.medium) {
                 toolbarButton("slider.horizontal.3", label: "Filters", action: onFilter)
