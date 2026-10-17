@@ -6,12 +6,27 @@ repo_root=$(CDPATH= cd -- "$hook_dir/.." && pwd)
 swiftformat_bin=$("$hook_dir/ensure-tool.sh" swiftformat)
 
 cd "$repo_root"
-case "${1:-lint}" in
+mode=${1:-lint}
+set -- \
+    Tahudu \
+    TahuduTests \
+    Packages/DesignSystem/Sources \
+    Packages/Networking/Sources \
+    Packages/Networking/Tests \
+    Packages/Analytics/Sources \
+    Packages/Analytics/Tests \
+    Packages/AnalyticsInterface/Sources \
+    Packages/Modules/Search/Search/Sources \
+    Packages/Modules/Search/Search/Tests \
+    Packages/Modules/Settings/Settings/Sources \
+    Packages/Modules/Settings/Settings/Tests
+
+case "$mode" in
     format)
-        "$swiftformat_bin" Tahudu TahuduTests Packages/DesignSystem/Sources Packages/Networking/Sources Packages/Networking/Tests Packages/Analytics/Sources Packages/Analytics/Tests Packages/AnalyticsInterface/Sources --strict --config "$repo_root/.swiftformat" --cache ignore
+        "$swiftformat_bin" "$@" --strict --config "$repo_root/.swiftformat" --cache ignore
         ;;
     lint)
-        "$swiftformat_bin" Tahudu TahuduTests Packages/DesignSystem/Sources Packages/Networking/Sources Packages/Networking/Tests Packages/Analytics/Sources Packages/Analytics/Tests Packages/AnalyticsInterface/Sources --lint --config "$repo_root/.swiftformat" --cache ignore
+        "$swiftformat_bin" "$@" --lint --config "$repo_root/.swiftformat" --cache ignore
         ;;
     *)
         exit 2

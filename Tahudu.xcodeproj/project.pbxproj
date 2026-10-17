@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		044076023083B3DD00297391 /* Search in Frameworks */ = {isa = PBXBuildFile; productRef = 044076013083B3DD00297391 /* Search */; };
+		044076043083B3E200297391 /* Settings in Frameworks */ = {isa = PBXBuildFile; productRef = 044076033083B3E200297391 /* Settings */; };
+		044076063083B40600297391 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 044076053083B40600297391 /* Networking */; };
 		1F479BA626EF162000F863AC /* TahuduApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BA526EF162000F863AC /* TahuduApp.swift */; };
 		1F479BAA26EF162400F863AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F479BA926EF162400F863AC /* Assets.xcassets */; };
 		1F479BAD26EF162400F863AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F479BAC26EF162400F863AC /* Preview Assets.xcassets */; };
@@ -15,7 +18,6 @@
 		1F479BDD26EF1AD400F863AC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BDC26EF1AD400F863AC /* SearchView.swift */; };
 		1F479BDF26EF1AE600F863AC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BDE26EF1AE600F863AC /* SettingsView.swift */; };
 		1F479BEE26F06FDD00F863AC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BED26F06FDD00F863AC /* SettingsViewController.swift */; };
-		A6B031E12F8A000100000001 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E32F8A000100000001 /* Networking */; };
 		A6B031E42F8A000100000001 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E62F8A000100000001 /* DesignSystem */; };
 		A6B031E72F8A000100000001 /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EB2F8A000100000001 /* Analytics */; };
 		A6B031E82F8A000100000001 /* AnalyticsInterface in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EC2F8A000100000001 /* AnalyticsInterface */; };
@@ -32,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		044075FE3083B0D200297391 /* Search */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Search; sourceTree = "<group>"; };
+		044075FF3083B15300297391 /* Settings */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Settings; sourceTree = "<group>"; };
 		1F479BA226EF162000F863AC /* Tahudu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tahudu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F479BA526EF162000F863AC /* TahuduApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahuduApp.swift; sourceTree = "<group>"; };
 		1F479BA926EF162400F863AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -54,10 +58,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044076063083B40600297391 /* Networking in Frameworks */,
+				044076023083B3DD00297391 /* Search in Frameworks */,
 				A6B031E72F8A000100000001 /* Analytics in Frameworks */,
 				A6B031E82F8A000100000001 /* AnalyticsInterface in Frameworks */,
+				044076043083B3E200297391 /* Settings in Frameworks */,
 				A6B031E42F8A000100000001 /* DesignSystem in Frameworks */,
-				A6B031E12F8A000100000001 /* Networking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +77,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		044075FB3083A86400297391 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				044075FD3083A88A00297391 /* Search */,
+				044075FC3083A88200297391 /* Settings */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		044075FC3083A88200297391 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				044075FF3083B15300297391 /* Settings */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		044075FD3083A88A00297391 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				044075FE3083B0D200297391 /* Search */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		044076003083B3DD00297391 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1F479B9926EF162000F863AC = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +116,7 @@
 				A6B031F42F8A000100000001 /* Packages */,
 				1F479BA426EF162000F863AC /* Tahudu */,
 				1F479BB526EF162400F863AC /* TahuduTests */,
+				044076003083B3DD00297391 /* Frameworks */,
 				1F479BA326EF162000F863AC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -156,6 +195,7 @@
 		A6B031F42F8A000100000001 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				044075FB3083A86400297391 /* Modules */,
 				A6B031F52F8A000100000001 /* Analytics */,
 				A6B031F22F8A000100000001 /* DesignSystem */,
 				A6B031F32F8A000100000001 /* Networking */,
@@ -193,7 +233,9 @@
 				A6B031EB2F8A000100000001 /* Analytics */,
 				A6B031EC2F8A000100000001 /* AnalyticsInterface */,
 				A6B031E62F8A000100000001 /* DesignSystem */,
-				A6B031E32F8A000100000001 /* Networking */,
+				044076013083B3DD00297391 /* Search */,
+				044076033083B3E200297391 /* Settings */,
+				044076053083B40600297391 /* Networking */,
 			);
 			productName = Tahudu;
 			productReference = 1F479BA226EF162000F863AC /* Tahudu.app */;
@@ -606,9 +648,16 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A6B031E32F8A000100000001 /* Networking */ = {
+		044076013083B3DD00297391 /* Search */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Networking" */;
+			productName = Search;
+		};
+		044076033083B3E200297391 /* Settings */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Settings;
+		};
+		044076053083B40600297391 /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = Networking;
 		};
 		A6B031E62F8A000100000001 /* DesignSystem */ = {
