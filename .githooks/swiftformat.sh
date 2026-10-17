@@ -16,6 +16,8 @@ set -- \
     Packages/Analytics/Sources \
     Packages/Analytics/Tests \
     Packages/AnalyticsInterface/Sources \
+    Packages/Caching/Sources \
+    Packages/Caching/Tests \
     Packages/Modules/Search/Search/Sources \
     Packages/Modules/Search/Search/Tests \
     Packages/Modules/Settings/Settings/Sources \

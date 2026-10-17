@@ -20,6 +20,7 @@
 		A6B031E42F8A000100000001 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E62F8A000100000001 /* DesignSystem */; };
 		A6B031E72F8A000100000001 /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EB2F8A000100000001 /* Analytics */; };
 		A6B031E82F8A000100000001 /* AnalyticsInterface in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EC2F8A000100000001 /* AnalyticsInterface */; };
+		A6B031F62F8A000100000001 /* Caching in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031F82F8A000100000001 /* Caching */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		A6B031F12F8A000100000001 /* AnalyticsInterface */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AnalyticsInterface; path = Packages/AnalyticsInterface; sourceTree = SOURCE_ROOT; };
 		A6B031F22F8A000100000001 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DesignSystem; path = Packages/DesignSystem; sourceTree = SOURCE_ROOT; };
 		A6B031F32F8A000100000001 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Networking; path = Packages/Networking; sourceTree = SOURCE_ROOT; };
+		A6B031F72F8A000100000001 /* Caching */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Caching; path = Packages/Caching; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				044076023083B3DD00297391 /* Search in Frameworks */,
 				A6B031E72F8A000100000001 /* Analytics in Frameworks */,
 				A6B031E82F8A000100000001 /* AnalyticsInterface in Frameworks */,
+				A6B031F62F8A000100000001 /* Caching in Frameworks */,
 				044076043083B3E200297391 /* Settings in Frameworks */,
 				A6B031E42F8A000100000001 /* DesignSystem in Frameworks */,
 			);
@@ -188,6 +191,7 @@
 				A6B031F52F8A000100000001 /* Analytics */,
 				A6B031F22F8A000100000001 /* DesignSystem */,
 				A6B031F32F8A000100000001 /* Networking */,
+				A6B031F72F8A000100000001 /* Caching */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -222,6 +226,7 @@
 				A6B031EB2F8A000100000001 /* Analytics */,
 				A6B031EC2F8A000100000001 /* AnalyticsInterface */,
 				A6B031E62F8A000100000001 /* DesignSystem */,
+				A6B031F82F8A000100000001 /* Caching */,
 				044076013083B3DD00297391 /* Search */,
 				044076033083B3E200297391 /* Settings */,
 				044076053083B40600297391 /* Networking */,
@@ -282,6 +287,7 @@
 				A6B031EA2F8A000100000001 /* XCLocalSwiftPackageReference "Packages/AnalyticsInterface" */,
 				A6B031E52F8A000100000001 /* XCLocalSwiftPackageReference "Packages/DesignSystem" */,
 				A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Networking" */,
+				A6B031F92F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Caching" */,
 			);
 			productRefGroup = 1F479BA326EF162000F863AC /* Products */;
 			projectDirPath = "";
@@ -638,6 +644,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/AnalyticsInterface;
 		};
+		A6B031F92F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Caching" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/Caching;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -668,6 +678,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A6B031EA2F8A000100000001 /* XCLocalSwiftPackageReference "Packages/AnalyticsInterface" */;
 			productName = AnalyticsInterface;
+		};
+		A6B031F82F8A000100000001 /* Caching */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A6B031F92F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Caching" */;
+			productName = Caching;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -1,3 +1,4 @@
+import Caching
 import Foundation
 import Networking
 @testable import Search
@@ -5,7 +6,7 @@ import Testing
 
 @Test func repositoryDecodesListingsAndNullableFields() async throws {
     let client = StubAPIClient(data: Data(responseJSON.utf8))
-    let repository = ListingRepository(client: client)
+    let repository = ListingRepository(client: client, cache: CacheMock())
 
     let listings = try await repository.fetchListings()
 
@@ -20,10 +21,47 @@ import Testing
 }
 
 @Test func repositoryPropagatesNetworkFailures() async {
-    let repository = ListingRepository(client: StubAPIClient(error: URLError(.notConnectedToInternet)))
+    let repository = ListingRepository(
+        client: StubAPIClient(error: URLError(.notConnectedToInternet)),
+        cache: CacheMock()
+    )
 
     await #expect(throws: URLError.self) {
         _ = try await repository.fetchListings()
+    }
+}
+
+@Test func repositoryLoadsCachedListingsWhenNetworkFails() async throws {
+    let cache = CacheMock()
+    let online = ListingRepository(
+        client: StubAPIClient(data: Data(responseJSON.utf8)),
+        cache: cache
+    )
+    let expected = try await online.fetchListings()
+
+    let offline = ListingRepository(
+        client: StubAPIClient(error: URLError(.notConnectedToInternet)),
+        cache: cache
+    )
+    let cached = try await offline.fetchListings()
+
+    #expect(cached == expected)
+}
+
+@Test func repositoryDoesNotUseCacheAfterCancellation() async throws {
+    let cache = CacheMock()
+    let online = ListingRepository(
+        client: StubAPIClient(data: Data(responseJSON.utf8)),
+        cache: cache
+    )
+    _ = try await online.fetchListings()
+
+    let cancelled = ListingRepository(
+        client: StubAPIClient(error: CancellationError()),
+        cache: cache
+    )
+    await #expect(throws: CancellationError.self) {
+        _ = try await cancelled.fetchListings()
     }
 }
 
@@ -56,6 +94,26 @@ private struct StubAPIClient: APIClientProtocol {
         if let error {
             throw error
         }
+    }
+}
+
+private actor CacheMock: CacheManagerProtocol {
+    private var values: [String: Data] = [:]
+
+    func save(_ data: Data, forKey key: String) {
+        values[key] = data
+    }
+
+    func data(forKey key: String) -> Data? {
+        values[key]
+    }
+
+    func remove(forKey key: String) {
+        values.removeValue(forKey: key)
+    }
+
+    func removeAll() {
+        values.removeAll()
     }
 }
 

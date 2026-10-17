@@ -10,6 +10,7 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "AnalyticsInterface", path: "../../../AnalyticsInterface"),
+        .package(name: "Caching", path: "../../../Caching"),
         .package(name: "DesignSystem", path: "../../../DesignSystem"),
         .package(name: "Networking", path: "../../../Networking"),
     ],
@@ -18,13 +19,14 @@ let package = Package(
             name: "Search",
             dependencies: [
                 .product(name: "AnalyticsInterface", package: "AnalyticsInterface"),
+                .product(name: "Caching", package: "Caching"),
                 .product(name: "DesignSystem", package: "DesignSystem"),
                 .product(name: "Networking", package: "Networking"),
             ]
         ),
         .testTarget(
             name: "SearchTests",
-            dependencies: ["Search", "Networking", "AnalyticsInterface"]
+            dependencies: ["Search", "Networking", "AnalyticsInterface", "Caching"]
         ),
     ],
     swiftLanguageModes: [.v5]
