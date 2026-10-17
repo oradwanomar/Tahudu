@@ -13,6 +13,7 @@ let package = Package(
         .package(name: "Caching", path: "../../../Caching"),
         .package(name: "DesignSystem", path: "../../../DesignSystem"),
         .package(name: "Networking", path: "../../../Networking"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing", from: "1.19.4"),
     ],
     targets: [
         .target(
@@ -26,7 +27,10 @@ let package = Package(
         ),
         .testTarget(
             name: "SearchTests",
-            dependencies: ["Search", "Networking", "AnalyticsInterface", "Caching"]
+            dependencies: [
+                "Search", "Networking", "AnalyticsInterface", "Caching",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+            ]
         ),
     ],
     swiftLanguageModes: [.v5]
