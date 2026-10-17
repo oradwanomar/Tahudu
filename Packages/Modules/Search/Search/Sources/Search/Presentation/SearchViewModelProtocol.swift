@@ -11,7 +11,7 @@ public enum SearchLoadState: Equatable {
 public protocol SearchViewModelProtocol: ObservableObject {
     var state: SearchLoadState { get }
     var searchText: String { get set }
-    var listings: [Listing] { get }
+    var listings: [ListingDisplayModel] { get }
 
     func load() async
     func retry() async

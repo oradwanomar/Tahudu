@@ -1,9 +1,8 @@
 import DesignSystem
-import Foundation
 import SwiftUI
 
 struct ListingCard: View {
-    let listing: Listing
+    let listing: ListingDisplayModel
     let onAction: (String) -> Void
 
     var body: some View {
@@ -16,7 +15,7 @@ struct ListingCard: View {
                 HStack(spacing: DSSpacing.xSmall) {
                     Text(listing.type)
                         .foregroundColor(.secondary)
-                    Text("Delivery: \(String(listing.deliveryYear))")
+                    Text(listing.deliveryText)
                         .foregroundColor(DSColor.deliveryText)
                         .padding(.horizontal, DSSpacing.xSmall)
                         .padding(.vertical, DSSpacing.xxSmall)
@@ -25,10 +24,10 @@ struct ListingCard: View {
                 }
                 .font(.caption)
 
-                Text(priceText)
+                Text(listing.priceText)
                     .font(.headline)
                     .foregroundColor(.primary)
-                    .accessibilityLabel("Price \(priceText)")
+                    .accessibilityLabel("Price \(listing.priceText)")
 
                 Text(listing.location)
                     .font(.caption)
@@ -36,9 +35,9 @@ struct ListingCard: View {
                     .lineLimit(2)
 
                 HStack(spacing: DSSpacing.medium) {
-                    Label(bedroomText, systemImage: "bed.double")
-                    Label("\(listing.bathrooms) Baths", systemImage: "bathtub")
-                    Text("\(listing.areaSqft) sqft")
+                    Label(listing.bedroomText, systemImage: "bed.double")
+                    Label(listing.bathroomText, systemImage: "bathtub")
+                    Text(listing.areaText)
                 }
                 .font(.caption)
                 .foregroundColor(.primary)
@@ -50,13 +49,13 @@ struct ListingCard: View {
             Divider()
 
             HStack(spacing: DSSpacing.xSmall) {
-                Text(publishedText)
+                Text(listing.publishedText)
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.8)
                 Spacer(minLength: DSSpacing.xxSmall)
-                ForEach(availableContacts, id: \.rawValue) { contact in
+                ForEach(listing.contactOptions, id: \.rawValue) { contact in
                     ContactButton(contact.buttonType) {
                         onAction("search_contact_\(contact.rawValue)_tapped")
                     }
@@ -65,8 +64,8 @@ struct ListingCard: View {
             }
             .padding(DSSpacing.small)
 
-            if let lastContactedAt = listing.lastContactedAt {
-                Label("Last contacted: \(dateText(lastContactedAt))", systemImage: "phone.fill")
+            if let lastContactedText = listing.lastContactedText {
+                Label(lastContactedText, systemImage: "phone.fill")
                     .font(.caption)
                     .foregroundColor(.primary)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -82,41 +81,9 @@ struct ListingCard: View {
                 .stroke(DSColor.border, lineWidth: 1)
         )
     }
-
-    private var priceText: String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 0
-        let amount = formatter.string(from: NSNumber(value: listing.price)) ?? String(listing.price)
-        return "\(amount) \(listing.currency)"
-    }
-
-    private var bedroomText: String {
-        listing.bedrooms.map { "\($0) Beds" } ?? "Studio"
-    }
-
-    private var publishedText: String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.unitsStyle = .full
-        return "Published \(formatter.localizedString(for: listing.publishedAt, relativeTo: Date()))"
-    }
-
-    private func dateText(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter.string(from: date)
-    }
-
-    private var availableContacts: [ListingContact] {
-        listing.contactOptions.compactMap(ListingContact.init(rawValue:))
-    }
 }
 
-private enum ListingContact: String {
-    case phone
-    case email
-    case whatsapp
-
+private extension ListingContactOption {
     var buttonType: ContactType {
         switch self {
         case .phone: return .phone

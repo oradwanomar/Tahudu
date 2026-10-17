@@ -14,6 +14,14 @@ import Testing
     #expect(useCase.search(listings, query: "  ").count == 2)
     #expect(useCase.search(listings, query: "Abu Dhabi").isEmpty)
     #expect(await repository.fetchCount == 1)
+    #expect(listings[0].priceText == "2,575,000 AED")
+    #expect(listings[0].deliveryText == "Delivery: 2022")
+    #expect(listings[0].bedroomText == "Studio")
+    #expect(listings[0].tags == [ListingTag(title: "VERIFIED", isVerified: true)])
+    #expect(listings[0].imageNames == ["FirstImage"])
+    #expect(listings[0].contactOptions == [.phone])
+    #expect(listings[1].bedroomText == "1 Beds")
+    #expect(listings[0].lastContactedText == nil)
 }
 
 actor ListingRepositoryStub: ListingRepositoryProtocol {

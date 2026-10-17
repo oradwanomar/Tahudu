@@ -2,20 +2,20 @@ import DesignSystem
 import SwiftUI
 
 struct ListingImageCarousel: View {
-    let listing: Listing
+    let listing: ListingDisplayModel
     let onFavorite: () -> Void
 
     @State private var selectedImage: String
 
-    init(listing: Listing, onFavorite: @escaping () -> Void) {
+    init(listing: ListingDisplayModel, onFavorite: @escaping () -> Void) {
         self.listing = listing
         self.onFavorite = onFavorite
-        _selectedImage = State(initialValue: listing.images.first ?? "")
+        _selectedImage = State(initialValue: listing.imageNames.first ?? "")
     }
 
     var body: some View {
         ZStack(alignment: .top) {
-            if listing.images.isEmpty {
+            if listing.imageNames.isEmpty {
                 Color(UIColor.secondarySystemBackground)
                     .overlay(
                         Image(systemName: "photo")
@@ -24,8 +24,8 @@ struct ListingImageCarousel: View {
                     )
             } else {
                 TabView(selection: $selectedImage) {
-                    ForEach(listing.images, id: \.self) { name in
-                        Image(assetName(for: name), bundle: .main)
+                    ForEach(listing.imageNames, id: \.self) { name in
+                        Image(name, bundle: .main)
                             .resizable()
                             .scaledToFill()
                             .frame(maxWidth: .infinity)
@@ -39,13 +39,13 @@ struct ListingImageCarousel: View {
 
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: DSSpacing.xxSmall) {
-                    ForEach(listing.tags, id: \.self) { tag in
-                        Text(label(for: tag))
+                    ForEach(listing.tags, id: \.title) { tag in
+                        Text(tag.title)
                             .font(.caption2.weight(.semibold))
                             .foregroundColor(.white)
                             .padding(.horizontal, DSSpacing.xSmall)
                             .padding(.vertical, DSSpacing.xxSmall)
-                            .background(badgeColor(for: tag))
+                            .background(tag.isVerified ? DSColor.verified : DSColor.accent)
                             .clipShape(RoundedRectangle(cornerRadius: DSRadius.small))
                     }
                 }
@@ -62,9 +62,9 @@ struct ListingImageCarousel: View {
             }
             .padding(DSSpacing.small)
 
-            if listing.images.count > 1 {
+            if listing.imageNames.count > 1 {
                 HStack(spacing: DSSpacing.xxSmall) {
-                    ForEach(listing.images, id: \.self) { name in
+                    ForEach(listing.imageNames, id: \.self) { name in
                         Circle()
                             .fill(name == selectedImage ? Color.white : Color.white.opacity(0.6))
                             .frame(width: 7, height: 7)
@@ -80,21 +80,5 @@ struct ListingImageCarousel: View {
         }
         .frame(height: DSSize.listingImageHeight)
         .clipped()
-    }
-
-    private func assetName(for name: String) -> String {
-        switch name {
-        case "first_image": return "FirstImage"
-        case "second_image": return "SecondImage"
-        default: return name
-        }
-    }
-
-    private func label(for tag: String) -> String {
-        tag.replacingOccurrences(of: "_", with: " ").uppercased()
-    }
-
-    private func badgeColor(for tag: String) -> Color {
-        tag == "verified" ? DSColor.verified : DSColor.accent
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Listing: Decodable, Equatable, Identifiable, Sendable {
+public struct Listing: Equatable, Identifiable, Sendable {
     public let id: String
     public let type: String
     public let deliveryYear: Int

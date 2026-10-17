@@ -9,15 +9,8 @@ public struct ListingRepository: ListingRepositoryProtocol {
     }
 
     public func fetchListings() async throws -> [Listing] {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-
-        let response: ListingResponse = try await client.request(SearchRouter(), decoder: decoder)
+        let response: ListingResponse = try await client.request(SearchRouter())
         print("Loaded \(response.listings.count) listings")
-        return response.listings
+        return response.listings.map(\.listing)
     }
-}
-
-private struct ListingResponse: Decodable {
-    let listings: [Listing]
 }

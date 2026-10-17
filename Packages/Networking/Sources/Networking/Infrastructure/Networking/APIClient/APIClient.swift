@@ -9,11 +9,10 @@ public final class APIClient: APIClientProtocol {
         self.session = session
     }
 
-    public func request<T: Decodable>(
-        _ endpoint: any APIEndpointProtocol,
-        decoder: JSONDecoder
-    ) async throws -> T {
+    public func request<T: Decodable>(_ endpoint: any APIEndpointProtocol) async throws -> T {
         let data = try await performRequest(endpoint)
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
 
         do {
             return try decoder.decode(T.self, from: data)

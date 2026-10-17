@@ -5,7 +5,7 @@ import Foundation
 @MainActor
 public final class SearchViewModel: SearchViewModelProtocol {
     @Published public private(set) var state: SearchLoadState = .idle
-    @Published public private(set) var listings: [Listing] = []
+    @Published public private(set) var listings: [ListingDisplayModel] = []
     @Published public var searchText = "" {
         didSet {
             listings = useCase.search(allListings, query: searchText)
@@ -14,7 +14,7 @@ public final class SearchViewModel: SearchViewModelProtocol {
 
     private let useCase: any SearchUseCaseProtocol
     private let analytics: any AnalyticsEventTracking
-    private var allListings: [Listing] = []
+    private var allListings: [ListingDisplayModel] = []
     private var hasLoaded = false
 
     public init(

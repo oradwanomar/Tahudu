@@ -21,7 +21,8 @@ struct SearchHeader: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.secondary)
                     .accessibilityHidden(true)
-                searchField
+                SearchTextField(text: $text, onSubmit: onSubmit)
+                    .frame(height: 24)
                 if !text.isEmpty {
                     Button {
                         text = ""
@@ -48,18 +49,6 @@ struct SearchHeader: View {
         .background(Color(UIColor.systemBackground))
     }
 
-    @ViewBuilder
-    private var searchField: some View {
-        if #available(iOS 15, *) {
-            TextField("City, area or building", text: $text)
-                .onSubmit(onSubmit)
-                .accessibilityLabel("Search by city, area or building")
-        } else {
-            TextField("City, area or building", text: $text, onCommit: onSubmit)
-                .accessibilityLabel("Search by city, area or building")
-        }
-    }
-
     private func toolbarButton(
         _ symbol: String,
         label: String,
@@ -73,5 +62,67 @@ struct SearchHeader: View {
         }
         .accessibilityLabel(label)
         .accessibilityHint("This action will be available in a later update")
+    }
+}
+
+private struct SearchTextField: UIViewRepresentable {
+    @Binding var text: String
+    let onSubmit: () -> Void
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(text: $text, onSubmit: onSubmit)
+    }
+
+    func makeUIView(context: Context) -> UITextField {
+        let field = UITextField()
+        field.placeholder = "City, area or building"
+        field.font = .preferredFont(forTextStyle: .body)
+        field.adjustsFontForContentSizeCategory = true
+        field.returnKeyType = .search
+        field.accessibilityLabel = "Search by city, area or building"
+        field.delegate = context.coordinator
+        field.addTarget(context.coordinator, action: #selector(Coordinator.textChanged(_:)), for: .editingChanged)
+
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        toolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Done", style: .done, target: context.coordinator, action: #selector(Coordinator.dismissKeyboard)),
+        ]
+        field.inputAccessoryView = toolbar
+        context.coordinator.field = field
+        return field
+    }
+
+    func updateUIView(_ field: UITextField, context: Context) {
+        if field.text != text {
+            field.text = text
+        }
+        context.coordinator.onSubmit = onSubmit
+    }
+
+    final class Coordinator: NSObject, UITextFieldDelegate {
+        @Binding var text: String
+        var onSubmit: () -> Void
+        weak var field: UITextField?
+
+        init(text: Binding<String>, onSubmit: @escaping () -> Void) {
+            _text = text
+            self.onSubmit = onSubmit
+        }
+
+        @objc func textChanged(_ field: UITextField) {
+            text = field.text ?? ""
+        }
+
+        @objc func dismissKeyboard() {
+            field?.resignFirstResponder()
+        }
+
+        func textFieldShouldReturn(_ field: UITextField) -> Bool {
+            onSubmit()
+            field.resignFirstResponder()
+            return true
+        }
     }
 }

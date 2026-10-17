@@ -5,44 +5,69 @@
 
 import Analytics
 import AnalyticsInterface
+import DesignSystem
 import Networking
 import Search
 import SwiftUI
 
 struct TahuduTabView: View {
-    @State private var selectedTab = Tabs.search.rawValue
+    @State private var selectedTab: Tabs = .search
     private let analytics: any AnalyticsEventTracking
 
     init(analytics: any AnalyticsEventTracking = AnalyticsEventTracker()) {
         self.analytics = analytics
+        let appearance = UITabBarAppearance()
+        let normalColor = UIColor.systemGray
+        let selectedColor = DSUIColor.brand
+
+        for item in [
+            appearance.stackedLayoutAppearance,
+            appearance.inlineLayoutAppearance,
+            appearance.compactInlineLayoutAppearance,
+        ] {
+            item.normal.iconColor = normalColor
+            item.normal.titleTextAttributes = [.foregroundColor: normalColor]
+            item.selected.iconColor = selectedColor
+            item.selected.titleTextAttributes = [.foregroundColor: selectedColor]
+        }
+
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().tintColor = selectedColor
+        UITabBar.appearance().unselectedItemTintColor = normalColor
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: normalColor], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: selectedColor], for: .selected)
+        if #available(iOS 15, *) {
+            UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
     }
 
     var body: some View {
         TabView(selection: $selectedTab) {
             SearchModuleFactory.make(client: APIClient.shared, analytics: analytics)
-                .tag(Tabs.search.rawValue)
+                .tag(Tabs.search)
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }
+
             SettingsView()
-                .tag(Tabs.settings.rawValue)
+                .tag(Tabs.settings)
                 .tabItem {
-                    Label("My Account", systemImage: selectedTab == Tabs.settings.rawValue ? "person.fill" : "person")
+                    Label("My Account", systemImage: selectedTab == .settings ? "person.fill" : "person")
                 }
-                .edgesIgnoringSafeArea(.all)
         }
+        .accentColor(DSColor.brand)
         .onAppear {
             trackSelectedTab()
         }
         .onChange(of: selectedTab) { _ in
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             trackSelectedTab()
         }
     }
 
     private func trackSelectedTab() {
-        guard let tab = Tabs(rawValue: selectedTab) else { return }
         analytics.trackEvent(
-            AnalyticsEvent(name: "tab_viewed", parameters: ["tab": tab.analyticsName])
+            AnalyticsEvent(name: "tab_viewed", parameters: ["tab": selectedTab.analyticsName])
         )
     }
 }

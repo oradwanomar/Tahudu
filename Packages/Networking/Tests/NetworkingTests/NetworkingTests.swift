@@ -26,6 +26,14 @@ struct NetworkingTests {
         #expect(request.value(forHTTPHeaderField: "Content-Type") == nil)
     }
 
+    @Test func requestDecodesISO8601Dates() async throws {
+        let client = makeClient(data: Data("{\"publishedAt\":\"2024-11-28T00:00:00Z\"}".utf8))
+
+        let value: DatePayload = try await client.request(Endpoint(method: .get))
+
+        #expect(value.publishedAt == Date(timeIntervalSince1970: 1_732_752_000))
+    }
+
     @Test func voidRequestAcceptsEmptySuccess() async throws {
         let client = makeClient(statusCode: 204)
         try await client.requestVoid(Endpoint(method: .delete))
@@ -127,6 +135,10 @@ struct NetworkingTests {
         configuration.protocolClasses = [MockURLProtocol.self]
         return APIClient(session: URLSession(configuration: configuration))
     }
+}
+
+private struct DatePayload: Decodable {
+    let publishedAt: Date
 }
 
 private struct Endpoint: APIEndpointProtocol {

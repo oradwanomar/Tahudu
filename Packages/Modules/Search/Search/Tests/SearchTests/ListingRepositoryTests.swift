@@ -43,13 +43,12 @@ private struct StubAPIClient: APIClientProtocol {
         self.error = error
     }
 
-    func request<T: Decodable>(
-        _: any APIEndpointProtocol,
-        decoder: JSONDecoder
-    ) async throws -> T {
+    func request<T: Decodable>(_: any APIEndpointProtocol) async throws -> T {
         if let error {
             throw error
         }
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
         return try decoder.decode(T.self, from: data)
     }
 
