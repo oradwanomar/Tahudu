@@ -8,10 +8,10 @@ swiftformat_bin=$("$hook_dir/ensure-tool.sh" swiftformat)
 cd "$repo_root"
 case "${1:-lint}" in
     format)
-        "$swiftformat_bin" Tahudu TahuduTests DesignSystem/Sources Networking/Sources Networking/Tests Analytics/Analytics/Sources Analytics/Analytics/Tests Analytics/AnalyticsInterface/Sources --strict --config "$repo_root/.swiftformat" --cache ignore
+        "$swiftformat_bin" Tahudu TahuduTests Packages/DesignSystem/Sources Packages/Networking/Sources Packages/Networking/Tests Packages/Analytics/Sources Packages/Analytics/Tests Packages/AnalyticsInterface/Sources --strict --config "$repo_root/.swiftformat" --cache ignore
         ;;
     lint)
-        "$swiftformat_bin" Tahudu TahuduTests DesignSystem/Sources Networking/Sources Networking/Tests Analytics/Analytics/Sources Analytics/Analytics/Tests Analytics/AnalyticsInterface/Sources --lint --config "$repo_root/.swiftformat" --cache ignore
+        "$swiftformat_bin" Tahudu TahuduTests Packages/DesignSystem/Sources Packages/Networking/Sources Packages/Networking/Tests Packages/Analytics/Sources Packages/Analytics/Tests Packages/AnalyticsInterface/Sources --lint --config "$repo_root/.swiftformat" --cache ignore
         ;;
     *)
         exit 2
