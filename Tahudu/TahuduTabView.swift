@@ -17,7 +17,7 @@ struct TahuduTabView: View {
     init(analytics: any AnalyticsEventTracking = AnalyticsEventTracker()) {
         self.analytics = analytics
         let appearance = UITabBarAppearance()
-        let normalColor = UIColor.systemGray
+        let normalColor = UIColor.lightGray
         let selectedColor = DSUIColor.brand
 
         for item in [

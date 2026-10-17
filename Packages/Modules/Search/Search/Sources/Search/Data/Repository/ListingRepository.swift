@@ -9,7 +9,7 @@ public struct ListingRepository: ListingRepositoryProtocol {
     }
 
     public func fetchListings() async throws -> [Listing] {
-        let response: ListingResponse = try await client.request(SearchRouter())
+        let response: ListingResponse = try await client.request(SearchRouter.getList)
         print("Loaded \(response.listings.count) listings")
         return response.listings.map(\.listing)
     }

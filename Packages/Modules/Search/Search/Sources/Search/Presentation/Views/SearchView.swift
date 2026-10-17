@@ -5,7 +5,6 @@ import SwiftUI
 public struct SearchView<Model: SearchViewModelProtocol>: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @StateObject private var viewModel: Model
-    @State private var loadTask: Task<Void, Never>?
 
     public init(viewModel: @autoclosure @escaping () -> Model) {
         _viewModel = StateObject(wrappedValue: viewModel())
@@ -46,13 +45,11 @@ public struct SearchView<Model: SearchViewModelProtocol>: View {
             .background(Color(UIColor.systemBackground))
             .simultaneousGesture(TapGesture().onEnded(dismissKeyboard))
         }
-        .onAppear {
-            loadTask = Task { await viewModel.load() }
+        .task {
+            await viewModel.load()
         }
         .onDisappear {
             dismissKeyboard()
-            loadTask?.cancel()
-            loadTask = nil
         }
     }
 

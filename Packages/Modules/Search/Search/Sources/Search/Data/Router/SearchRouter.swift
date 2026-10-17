@@ -1,9 +1,25 @@
 import Networking
 
-public struct SearchRouter: APIEndpointProtocol {
-    public let method: HTTPMethod = .get
-    public let baseURL = "https://simplejsoncms.com"
-    public let path = "api/m6nfoc4jlw"
+public enum SearchRouter {
+    case getList
+}
 
-    public init() {}
+extension SearchRouter: APIEndpointProtocol {
+    public var method: HTTPMethod {
+        switch self {
+        case .getList:
+            .get
+        }
+    }
+
+    public var baseURL: String {
+        "https://simplejsoncms.com"
+    }
+
+    public var path: String {
+        switch self {
+        case .getList:
+            "api/m6nfoc4jlw"
+        }
+    }
 }

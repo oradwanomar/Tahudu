@@ -6,5 +6,5 @@
 //
 
 public enum APIConstants {
-    static let baseURL = "https://simplejsoncms.com/api/m6nfoc4jlw"
+    static let baseURL = "https://simplejsoncms.com"
 }

@@ -28,7 +28,7 @@ import Testing
 }
 
 @Test func searchRouterUsesHostedListingsURL() throws {
-    let request = try SearchRouter().asURLRequest()
+    let request = try SearchRouter.getList.asURLRequest()
 
     #expect(request.url?.absoluteString == "https://simplejsoncms.com/api/m6nfoc4jlw")
     #expect(request.httpMethod == "GET")
