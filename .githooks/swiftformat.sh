@@ -11,6 +11,7 @@ set -- \
     Tahudu \
     TahuduTests \
     Packages/DesignSystem/Sources \
+    Packages/DesignSystem/Tests \
     Packages/Networking/Sources \
     Packages/Networking/Tests \
     Packages/Analytics/Sources \
