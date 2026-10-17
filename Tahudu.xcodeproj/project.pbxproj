@@ -3,14 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A6B031E72F8A000100000001 /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EB2F8A000100000001 /* Analytics */; };
-		A6B031E82F8A000100000001 /* AnalyticsInterface in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EC2F8A000100000001 /* AnalyticsInterface */; };
-		A6B031E42F8A000100000001 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E62F8A000100000001 /* DesignSystem */; };
-		A6B031E12F8A000100000001 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E32F8A000100000001 /* Networking */; };
 		1F479BA626EF162000F863AC /* TahuduApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BA526EF162000F863AC /* TahuduApp.swift */; };
 		1F479BAA26EF162400F863AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F479BA926EF162400F863AC /* Assets.xcassets */; };
 		1F479BAD26EF162400F863AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F479BAC26EF162400F863AC /* Preview Assets.xcassets */; };
@@ -19,6 +15,10 @@
 		1F479BDD26EF1AD400F863AC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BDC26EF1AD400F863AC /* SearchView.swift */; };
 		1F479BDF26EF1AE600F863AC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BDE26EF1AE600F863AC /* SettingsView.swift */; };
 		1F479BEE26F06FDD00F863AC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BED26F06FDD00F863AC /* SettingsViewController.swift */; };
+		A6B031E12F8A000100000001 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E32F8A000100000001 /* Networking */; };
+		A6B031E42F8A000100000001 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E62F8A000100000001 /* DesignSystem */; };
+		A6B031E72F8A000100000001 /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EB2F8A000100000001 /* Analytics */; };
+		A6B031E82F8A000100000001 /* AnalyticsInterface in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EC2F8A000100000001 /* AnalyticsInterface */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,12 +156,20 @@
 		A6B031F42F8A000100000001 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				A6B031F02F8A000100000001 /* Analytics */,
-				A6B031F12F8A000100000001 /* AnalyticsInterface */,
+				A6B031F52F8A000100000001 /* Analytics */,
 				A6B031F22F8A000100000001 /* DesignSystem */,
 				A6B031F32F8A000100000001 /* Networking */,
 			);
 			path = Packages;
+			sourceTree = "<group>";
+		};
+		A6B031F52F8A000100000001 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				A6B031F02F8A000100000001 /* Analytics */,
+				A6B031F12F8A000100000001 /* AnalyticsInterface */,
+			);
+			name = Analytics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,14 +189,14 @@
 			dependencies = (
 			);
 			name = Tahudu;
-			productName = Tahudu;
-			productReference = 1F479BA226EF162000F863AC /* Tahudu.app */;
 			packageProductDependencies = (
 				A6B031EB2F8A000100000001 /* Analytics */,
 				A6B031EC2F8A000100000001 /* AnalyticsInterface */,
 				A6B031E62F8A000100000001 /* DesignSystem */,
 				A6B031E32F8A000100000001 /* Networking */,
 			);
+			productName = Tahudu;
+			productReference = 1F479BA226EF162000F863AC /* Tahudu.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1F479BB126EF162400F863AC /* TahuduTests */ = {
@@ -238,10 +246,10 @@
 			);
 			mainGroup = 1F479B9926EF162000F863AC;
 			packageReferences = (
-				A6B031E92F8A000100000001 /* XCLocalSwiftPackageReference "Analytics" */,
-				A6B031EA2F8A000100000001 /* XCLocalSwiftPackageReference "AnalyticsInterface" */,
-				A6B031E52F8A000100000001 /* XCLocalSwiftPackageReference "DesignSystem" */,
-				A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Networking" */,
+				A6B031E92F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Analytics" */,
+				A6B031EA2F8A000100000001 /* XCLocalSwiftPackageReference "Packages/AnalyticsInterface" */,
+				A6B031E52F8A000100000001 /* XCLocalSwiftPackageReference "Packages/DesignSystem" */,
+				A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Networking" */,
 			);
 			productRefGroup = 1F479BA326EF162000F863AC /* Products */;
 			projectDirPath = "";
@@ -579,44 +587,44 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		A6B031E92F8A000100000001 /* XCLocalSwiftPackageReference "Analytics" */ = {
+		A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Networking" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/Analytics;
+			relativePath = Packages/Networking;
 		};
-		A6B031EA2F8A000100000001 /* XCLocalSwiftPackageReference "AnalyticsInterface" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/AnalyticsInterface;
-		};
-		A6B031E52F8A000100000001 /* XCLocalSwiftPackageReference "DesignSystem" */ = {
+		A6B031E52F8A000100000001 /* XCLocalSwiftPackageReference "Packages/DesignSystem" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/DesignSystem;
 		};
-		A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Networking" */ = {
+		A6B031E92F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Analytics" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/Networking;
+			relativePath = Packages/Analytics;
+		};
+		A6B031EA2F8A000100000001 /* XCLocalSwiftPackageReference "Packages/AnalyticsInterface" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/AnalyticsInterface;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A6B031E32F8A000100000001 /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Networking" */;
+			productName = Networking;
+		};
+		A6B031E62F8A000100000001 /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A6B031E52F8A000100000001 /* XCLocalSwiftPackageReference "Packages/DesignSystem" */;
+			productName = DesignSystem;
+		};
 		A6B031EB2F8A000100000001 /* Analytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A6B031E92F8A000100000001 /* XCLocalSwiftPackageReference "Analytics" */;
+			package = A6B031E92F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Analytics" */;
 			productName = Analytics;
 		};
 		A6B031EC2F8A000100000001 /* AnalyticsInterface */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A6B031EA2F8A000100000001 /* XCLocalSwiftPackageReference "AnalyticsInterface" */;
+			package = A6B031EA2F8A000100000001 /* XCLocalSwiftPackageReference "Packages/AnalyticsInterface" */;
 			productName = AnalyticsInterface;
-		};
-		A6B031E62F8A000100000001 /* DesignSystem */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A6B031E52F8A000100000001 /* XCLocalSwiftPackageReference "DesignSystem" */;
-			productName = DesignSystem;
-		};
-		A6B031E32F8A000100000001 /* Networking */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Networking" */;
-			productName = Networking;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
