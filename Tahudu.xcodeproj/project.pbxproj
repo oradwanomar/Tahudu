@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A6B031E72F8A000100000001 /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EB2F8A000100000001 /* Analytics */; };
+		A6B031E82F8A000100000001 /* AnalyticsInterface in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EC2F8A000100000001 /* AnalyticsInterface */; };
 		A6B031E42F8A000100000001 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E62F8A000100000001 /* DesignSystem */; };
 		A6B031E12F8A000100000001 /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E32F8A000100000001 /* Networking */; };
 		1F479BA626EF162000F863AC /* TahuduApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BA526EF162000F863AC /* TahuduApp.swift */; };
@@ -48,6 +50,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6B031E72F8A000100000001 /* Analytics in Frameworks */,
+				A6B031E82F8A000100000001 /* AnalyticsInterface in Frameworks */,
 				A6B031E42F8A000100000001 /* DesignSystem in Frameworks */,
 				A6B031E12F8A000100000001 /* Networking in Frameworks */,
 			);
@@ -164,6 +168,8 @@
 			productName = Tahudu;
 			productReference = 1F479BA226EF162000F863AC /* Tahudu.app */;
 			packageProductDependencies = (
+				A6B031EB2F8A000100000001 /* Analytics */,
+				A6B031EC2F8A000100000001 /* AnalyticsInterface */,
 				A6B031E62F8A000100000001 /* DesignSystem */,
 				A6B031E32F8A000100000001 /* Networking */,
 			);
@@ -216,6 +222,8 @@
 			);
 			mainGroup = 1F479B9926EF162000F863AC;
 			packageReferences = (
+				A6B031E92F8A000100000001 /* XCLocalSwiftPackageReference "Analytics" */,
+				A6B031EA2F8A000100000001 /* XCLocalSwiftPackageReference "AnalyticsInterface" */,
 				A6B031E52F8A000100000001 /* XCLocalSwiftPackageReference "DesignSystem" */,
 				A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Networking" */,
 			);
@@ -555,6 +563,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		A6B031E92F8A000100000001 /* XCLocalSwiftPackageReference "Analytics" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Analytics/Analytics;
+		};
+		A6B031EA2F8A000100000001 /* XCLocalSwiftPackageReference "AnalyticsInterface" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Analytics/AnalyticsInterface;
+		};
 		A6B031E52F8A000100000001 /* XCLocalSwiftPackageReference "DesignSystem" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = DesignSystem;
@@ -566,6 +582,16 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A6B031EB2F8A000100000001 /* Analytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A6B031E92F8A000100000001 /* XCLocalSwiftPackageReference "Analytics" */;
+			productName = Analytics;
+		};
+		A6B031EC2F8A000100000001 /* AnalyticsInterface */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A6B031EA2F8A000100000001 /* XCLocalSwiftPackageReference "AnalyticsInterface" */;
+			productName = AnalyticsInterface;
+		};
 		A6B031E62F8A000100000001 /* DesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A6B031E52F8A000100000001 /* XCLocalSwiftPackageReference "DesignSystem" */;
