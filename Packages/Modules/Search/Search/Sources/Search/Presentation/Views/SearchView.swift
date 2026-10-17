@@ -18,9 +18,18 @@ public struct SearchView<Model: SearchViewModelProtocol>: View {
                     set: { viewModel.searchText = $0 }
                 ),
                 onSubmit: viewModel.submitSearch,
-                onFilter: {
+                favoritesOnly: viewModel.favoritesOnly,
+                onShowAll: {
                     dismissKeyboard()
-                    viewModel.logAction("search_filter_tapped", listingID: nil)
+                    withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.25)) {
+                        viewModel.showFavoritesOnly(false)
+                    }
+                },
+                onShowFavorites: {
+                    dismissKeyboard()
+                    withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.25)) {
+                        viewModel.showFavoritesOnly(true)
+                    }
                 },
                 sortByLatest: viewModel.sortOrder == .latest,
                 onSortLatest: {
@@ -34,10 +43,6 @@ public struct SearchView<Model: SearchViewModelProtocol>: View {
                     withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.35)) {
                         viewModel.setSortOrder(.earliest)
                     }
-                },
-                onFavorites: {
-                    dismissKeyboard()
-                    viewModel.logAction("search_favorites_tapped", listingID: nil)
                 }
             )
 
@@ -50,6 +55,7 @@ public struct SearchView<Model: SearchViewModelProtocol>: View {
                 .padding(.bottom, DSSpacing.large)
                 .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: viewModel.state)
                 .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: viewModel.listings.isEmpty)
+                .animation(reduceMotion ? nil : .easeInOut(duration: 0.25), value: viewModel.listings.map(\.id))
             }
             .background(Color(UIColor.systemBackground))
             .simultaneousGesture(TapGesture().onEnded(dismissKeyboard))
@@ -59,6 +65,23 @@ public struct SearchView<Model: SearchViewModelProtocol>: View {
         }
         .onDisappear {
             dismissKeyboard()
+        }
+        .alert(
+            "Could not update favorites",
+            isPresented: Binding(
+                get: { viewModel.favoriteError != nil },
+                set: {
+                    if !$0 {
+                        viewModel.dismissFavoriteError()
+                    }
+                }
+            )
+        ) {
+            Button("OK", role: .cancel) {
+                viewModel.dismissFavoriteError()
+            }
+        } message: {
+            Text(viewModel.favoriteError ?? "")
         }
     }
 
@@ -89,19 +112,40 @@ public struct SearchView<Model: SearchViewModelProtocol>: View {
             .transition(.opacity)
         case .loaded:
             if viewModel.listings.isEmpty {
-                SearchMessage(
-                    symbol: "magnifyingglass",
-                    title: "No properties found",
-                    message: viewModel.searchText.isEmpty
-                        ? "There are no properties to show right now."
-                        : "Try another city, area, or building."
-                )
+                Group {
+                    if viewModel.favoritesOnly {
+                        SearchMessage(
+                            symbol: "heart",
+                            title: "No favorites found",
+                            message: viewModel.searchText.isEmpty
+                                ? "Tap the heart on a property to save it here."
+                                : "No saved properties match your search."
+                        )
+                    } else {
+                        SearchMessage(
+                            symbol: "magnifyingglass",
+                            title: "No properties found",
+                            message: viewModel.searchText.isEmpty
+                                ? "There are no properties to show right now."
+                                : "Try another city, area, or building."
+                        )
+                    }
+                }
                 .transition(.opacity)
             } else {
                 ForEach(viewModel.listings) { listing in
-                    ListingCard(listing: listing) { action in
-                        viewModel.logAction(action, listingID: listing.id)
-                    }
+                    ListingCard(
+                        listing: listing,
+                        isFavorite: viewModel.favoriteIDs.contains(listing.id),
+                        isFavoriteUpdating: viewModel.updatingFavoriteIDs.contains(listing.id),
+                        onFavorite: {
+                            Task { await viewModel.toggleFavorite(listing.id) }
+                        },
+                        onAction: { action in
+                            viewModel.logAction(action, listingID: listing.id)
+                        }
+                    )
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
                 }
             }
         }
@@ -133,7 +177,7 @@ private struct SearchMessage: View {
         VStack(spacing: DSSpacing.small) {
             Image(systemName: symbol)
                 .font(.title)
-                .foregroundColor(DSColor.accent)
+                .foregroundColor(.red)
                 .accessibilityHidden(true)
             Text(title)
                 .font(.headline)

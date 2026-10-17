@@ -7,6 +7,10 @@ public final class SearchViewModel: SearchViewModelProtocol {
     @Published public private(set) var state: SearchLoadState = .idle
     @Published public private(set) var listings: [ListingDisplayModel] = []
     @Published public private(set) var sortOrder: ListingSortOrder = .latest
+    @Published public private(set) var favoriteIDs: Set<String> = []
+    @Published public private(set) var favoritesOnly = false
+    @Published public private(set) var updatingFavoriteIDs: Set<String> = []
+    @Published public private(set) var favoriteError: String?
     @Published public var searchText = "" {
         didSet {
             updateListings()
@@ -34,7 +38,10 @@ public final class SearchViewModel: SearchViewModelProtocol {
         do {
             let result = try await useCase.fetchListings()
             try Task.checkCancellation()
+            let restoredFavorites = try await useCase.favoriteIDs(for: result)
+            try Task.checkCancellation()
             allListings = result
+            favoriteIDs = restoredFavorites
             updateListings()
             hasLoaded = true
             state = .loaded
@@ -68,8 +75,48 @@ public final class SearchViewModel: SearchViewModelProtocol {
         logAction("search_sort_selected_\(order.rawValue)", listingID: nil)
     }
 
+    public func showFavoritesOnly(_ enabled: Bool) {
+        guard favoritesOnly != enabled else { return }
+        favoritesOnly = enabled
+        updateListings()
+        logAction(enabled ? "search_favorites_filter_enabled" : "search_favorites_filter_disabled", listingID: nil)
+    }
+
+    public func toggleFavorite(_ id: String) async {
+        guard state == .loaded,
+              allListings.contains(where: { $0.id == id }),
+              !updatingFavoriteIDs.contains(id) else { return }
+
+        updatingFavoriteIDs.insert(id)
+        defer { updatingFavoriteIDs.remove(id) }
+
+        do {
+            let isFavorite = try await useCase.toggleFavorite(
+                id: id,
+                isCurrentlyFavorite: favoriteIDs.contains(id)
+            )
+            if isFavorite {
+                favoriteIDs.insert(id)
+            } else {
+                favoriteIDs.remove(id)
+            }
+            updateListings()
+            logAction(isFavorite ? "search_favorite_added" : "search_favorite_removed", listingID: id)
+        } catch {
+            favoriteError = "Your change could not be saved. Please try again."
+            print("Could not update favorite \(id): \(error)")
+        }
+    }
+
+    public func dismissFavoriteError() {
+        favoriteError = nil
+    }
+
     private func updateListings() {
-        let filtered = useCase.search(allListings, query: searchText)
+        let searched = useCase.search(allListings, query: searchText)
+        let filtered = favoritesOnly
+            ? useCase.filterFavorites(searched, favoriteIDs: favoriteIDs)
+            : searched
         switch sortOrder {
         case .latest:
             listings = filtered.sorted { $0.publishedAt > $1.publishedAt }

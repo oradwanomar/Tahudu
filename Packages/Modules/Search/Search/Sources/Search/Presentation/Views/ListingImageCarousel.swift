@@ -2,13 +2,24 @@ import DesignSystem
 import SwiftUI
 
 struct ListingImageCarousel: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     let listing: ListingDisplayModel
+    let isFavorite: Bool
+    let isFavoriteUpdating: Bool
     let onFavorite: () -> Void
 
     @State private var selectedImage: String
 
-    init(listing: ListingDisplayModel, onFavorite: @escaping () -> Void) {
+    init(
+        listing: ListingDisplayModel,
+        isFavorite: Bool,
+        isFavoriteUpdating: Bool,
+        onFavorite: @escaping () -> Void
+    ) {
         self.listing = listing
+        self.isFavorite = isFavorite
+        self.isFavoriteUpdating = isFavoriteUpdating
         self.onFavorite = onFavorite
         _selectedImage = State(initialValue: listing.imageNames.first ?? "")
     }
@@ -51,14 +62,23 @@ struct ListingImageCarousel: View {
                 }
                 Spacer()
                 Button(action: onFavorite) {
-                    Image(systemName: "heart")
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .frame(width: 44, height: 44)
-                        .background(Circle().fill(Color.black.opacity(0.45)))
+                    ZStack {
+                        Image(systemName: "heart")
+                            .opacity(isFavorite ? 0 : 1)
+                            .scaleEffect(isFavorite ? 0.6 : 1)
+                        Image(systemName: "heart.fill")
+                            .opacity(isFavorite ? 1 : 0)
+                            .scaleEffect(isFavorite ? 1 : 0.6)
+                    }
+                    .font(.title2)
+                    .foregroundColor(isFavorite ? .red : .white)
+                    .frame(width: 44, height: 44)
+                    .background(Circle().fill(Color.black.opacity(0.45)))
+                    .animation(reduceMotion ? nil : .spring(response: 0.3, dampingFraction: 0.65), value: isFavorite)
                 }
-                .accessibilityLabel("Add property to favorites")
-                .accessibilityHint("Favorites will be available in a later update")
+                .disabled(isFavoriteUpdating)
+                .accessibilityLabel(isFavorite ? "Remove property from favorites" : "Add property to favorites")
+                .accessibilityValue(isFavorite ? "Favorite" : "Not favorite")
             }
             .padding(DSSpacing.small)
 

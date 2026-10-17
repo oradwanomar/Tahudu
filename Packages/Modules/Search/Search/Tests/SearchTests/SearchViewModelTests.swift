@@ -8,7 +8,7 @@ import Testing
     let repository = ListingRepositoryStub(listings: testListings)
     let analytics = AnalyticsEventTrackerMock()
     let viewModel = SearchViewModel(
-        useCase: SearchUseCase(repository: repository),
+        useCase: SearchUseCase(repository: repository, favorites: FavoriteRepositoryStub()),
         analytics: analytics
     )
 
@@ -26,7 +26,7 @@ import Testing
 @Test func viewModelShowsFailureAndCanRetry() async {
     let repository = FlakyListingRepository()
     let viewModel = SearchViewModel(
-        useCase: SearchUseCase(repository: repository),
+        useCase: SearchUseCase(repository: repository, favorites: FavoriteRepositoryStub()),
         analytics: AnalyticsEventTrackerMock()
     )
 
@@ -42,7 +42,10 @@ import Testing
 @Test func viewModelSortsByPublicationDateAndKeepsOrderWhileSearching() async {
     let analytics = AnalyticsEventTrackerMock()
     let viewModel = SearchViewModel(
-        useCase: SearchUseCase(repository: ListingRepositoryStub(listings: testListings)),
+        useCase: SearchUseCase(
+            repository: ListingRepositoryStub(listings: testListings),
+            favorites: FavoriteRepositoryStub()
+        ),
         analytics: analytics
     )
 
@@ -71,7 +74,7 @@ import Testing
 @Test func cancellingLoadDoesNotShowAnError() async {
     let analytics = AnalyticsEventTrackerMock()
     let viewModel = SearchViewModel(
-        useCase: SearchUseCase(repository: SlowListingRepository()),
+        useCase: SearchUseCase(repository: SlowListingRepository(), favorites: FavoriteRepositoryStub()),
         analytics: analytics
     )
 
@@ -81,6 +84,58 @@ import Testing
 
     #expect(viewModel.state == .idle)
     #expect(analytics.trackedEvents.isEmpty)
+}
+
+@MainActor
+@Test func viewModelCombinesFavoritesWithSearchAndSort() async {
+    let favorites = FavoriteRepositoryStub(ids: ["one"])
+    let viewModel = SearchViewModel(
+        useCase: SearchUseCase(
+            repository: ListingRepositoryStub(listings: testListings),
+            favorites: favorites
+        ),
+        analytics: AnalyticsEventTrackerMock()
+    )
+
+    await viewModel.load()
+    #expect(viewModel.favoriteIDs == ["one"])
+    #expect(viewModel.listings.map(\.id) == ["two", "one"])
+
+    viewModel.showFavoritesOnly(true)
+    #expect(viewModel.listings.map(\.id) == ["one"])
+
+    viewModel.searchText = "Dubai"
+    #expect(viewModel.listings.isEmpty)
+    viewModel.searchText = ""
+
+    await viewModel.toggleFavorite("one")
+    #expect(viewModel.favoriteIDs.isEmpty)
+    #expect(viewModel.listings.isEmpty)
+
+    viewModel.showFavoritesOnly(false)
+    await viewModel.toggleFavorite("two")
+    viewModel.showFavoritesOnly(true)
+    #expect(viewModel.listings.map(\.id) == ["two"])
+    #expect(await favorites.favoriteIDs(for: ["one", "two"]) == ["two"])
+}
+
+@MainActor
+@Test func failedFavoriteWriteKeepsPreviousState() async {
+    let viewModel = SearchViewModel(
+        useCase: SearchUseCase(
+            repository: ListingRepositoryStub(listings: testListings),
+            favorites: FailingFavoriteRepository()
+        ),
+        analytics: AnalyticsEventTrackerMock()
+    )
+
+    await viewModel.load()
+    await viewModel.toggleFavorite("one")
+
+    #expect(viewModel.favoriteIDs.isEmpty)
+    #expect(viewModel.favoriteError != nil)
+    viewModel.dismissFavoriteError()
+    #expect(viewModel.favoriteError == nil)
 }
 
 private actor FlakyListingRepository: ListingRepositoryProtocol {
@@ -99,5 +154,15 @@ private struct SlowListingRepository: ListingRepositoryProtocol {
     func fetchListings() async throws -> [Listing] {
         try await Task.sleep(nanoseconds: 5_000_000_000)
         return testListings
+    }
+}
+
+private struct FailingFavoriteRepository: FavoriteRepositoryProtocol {
+    func favoriteIDs(for _: [String]) -> Set<String> {
+        []
+    }
+
+    func setFavorite(_: Bool, for _: String) throws {
+        throw URLError(.cannotWriteToFile)
     }
 }

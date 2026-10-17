@@ -4,7 +4,7 @@ import Testing
 
 @Test func searchMatchesBuildingAreaAndCityWithoutAnotherFetch() async throws {
     let repository = ListingRepositoryStub(listings: testListings)
-    let useCase = SearchUseCase(repository: repository)
+    let useCase = SearchUseCase(repository: repository, favorites: FavoriteRepositoryStub())
     let listings = try await useCase.fetchListings()
 
     #expect(useCase.search(listings, query: "laguna").map(\.id) == ["one"])
@@ -24,6 +24,25 @@ import Testing
     #expect(listings[0].lastContactedText == nil)
 }
 
+@Test func useCaseTogglesAndFiltersFavorites() async throws {
+    let favorites = FavoriteRepositoryStub()
+    let useCase = SearchUseCase(
+        repository: ListingRepositoryStub(listings: testListings),
+        favorites: favorites
+    )
+    let listings = try await useCase.fetchListings()
+
+    #expect(try await useCase.favoriteIDs(for: listings).isEmpty)
+    #expect(try await useCase.toggleFavorite(id: "one", isCurrentlyFavorite: false))
+
+    let saved = try await useCase.favoriteIDs(for: listings)
+    #expect(saved == ["one"])
+    #expect(useCase.filterFavorites(listings, favoriteIDs: saved).map(\.id) == ["one"])
+
+    #expect(try await !useCase.toggleFavorite(id: "one", isCurrentlyFavorite: true))
+    #expect(try await useCase.favoriteIDs(for: listings).isEmpty)
+}
+
 actor ListingRepositoryStub: ListingRepositoryProtocol {
     private(set) var fetchCount = 0
     let listings: [Listing]
@@ -35,6 +54,26 @@ actor ListingRepositoryStub: ListingRepositoryProtocol {
     func fetchListings() async throws -> [Listing] {
         fetchCount += 1
         return listings
+    }
+}
+
+actor FavoriteRepositoryStub: FavoriteRepositoryProtocol {
+    private var ids: Set<String>
+
+    init(ids: Set<String> = []) {
+        self.ids = ids
+    }
+
+    func favoriteIDs(for listingIDs: [String]) -> Set<String> {
+        ids.intersection(listingIDs)
+    }
+
+    func setFavorite(_ isFavorite: Bool, for listingID: String) {
+        if isFavorite {
+            ids.insert(listingID)
+        } else {
+            ids.remove(listingID)
+        }
     }
 }
 

@@ -3,34 +3,56 @@ import SwiftUI
 public struct SearchHeader: View {
     @Binding private var text: String
     private let onSubmit: () -> Void
-    private let onFilter: () -> Void
+    private let favoritesOnly: Bool
+    private let onShowAll: () -> Void
+    private let onShowFavorites: () -> Void
     private let sortByLatest: Bool
     private let onSortLatest: () -> Void
     private let onSortEarliest: () -> Void
-    private let onFavorites: () -> Void
 
     public init(
         text: Binding<String>,
         onSubmit: @escaping () -> Void,
-        onFilter: @escaping () -> Void,
+        favoritesOnly: Bool,
+        onShowAll: @escaping () -> Void,
+        onShowFavorites: @escaping () -> Void,
         sortByLatest: Bool,
         onSortLatest: @escaping () -> Void,
-        onSortEarliest: @escaping () -> Void,
-        onFavorites: @escaping () -> Void
+        onSortEarliest: @escaping () -> Void
     ) {
         _text = text
         self.onSubmit = onSubmit
-        self.onFilter = onFilter
+        self.favoritesOnly = favoritesOnly
+        self.onShowAll = onShowAll
+        self.onShowFavorites = onShowFavorites
         self.sortByLatest = sortByLatest
         self.onSortLatest = onSortLatest
         self.onSortEarliest = onSortEarliest
-        self.onFavorites = onFavorites
     }
 
     public var body: some View {
         VStack(spacing: DSSpacing.medium) {
             HStack(spacing: DSSpacing.medium) {
-                toolbarButton("slider.horizontal.3", label: "Filters", action: onFilter)
+                Menu {
+                    Button(action: onShowAll) {
+                        if favoritesOnly {
+                            Text("All properties")
+                        } else {
+                            Label("All properties", systemImage: "checkmark")
+                        }
+                    }
+                    Button(action: onShowFavorites) {
+                        if favoritesOnly {
+                            Label("Favorites only", systemImage: "checkmark")
+                        } else {
+                            Text("Favorites only")
+                        }
+                    }
+                } label: {
+                    toolbarIcon("slider.horizontal.3")
+                }
+                .accessibilityLabel("Filter listings")
+                .accessibilityValue(favoritesOnly ? "Favorites only" : "All properties")
                 Menu {
                     Button(action: onSortLatest) {
                         if sortByLatest {
@@ -52,7 +74,10 @@ public struct SearchHeader: View {
                 .accessibilityLabel("Sort listings")
                 .accessibilityValue(sortByLatest ? "Latest first" : "Earliest first")
                 Spacer()
-                toolbarButton("star", label: "Favorites", action: onFavorites)
+                Button(action: favoritesOnly ? onShowAll : onShowFavorites) {
+                    toolbarIcon(favoritesOnly ? "star.fill" : "star")
+                }
+                .accessibilityLabel(favoritesOnly ? "Show all properties" : "Show favorites only")
             }
 
             HStack(spacing: DSSpacing.small) {
@@ -80,23 +105,33 @@ public struct SearchHeader: View {
                 RoundedRectangle(cornerRadius: DSRadius.large)
                     .stroke(DSColor.border, lineWidth: 1)
             )
+
+            if favoritesOnly {
+                Button(action: onShowAll) {
+                    HStack(spacing: DSSpacing.xSmall) {
+                        Image(systemName: "heart.fill")
+                            .foregroundColor(.red)
+                        Text("Favorites only")
+                            .foregroundColor(.black)
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.black)
+                    }
+                    .font(.caption.weight(.semibold))
+                    .foregroundColor(DSColor.accent)
+                    .padding(.horizontal, DSSpacing.small)
+                    .padding(.vertical, DSSpacing.xSmall)
+                    .background(DSColor.deliveryBackground)
+                    .clipShape(Capsule())
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityLabel("Clear favorites filter")
+                .transition(.opacity.combined(with: .move(edge: .top)))
+            }
         }
         .padding(.horizontal, DSSpacing.medium)
         .padding(.top, DSSpacing.xSmall)
         .padding(.bottom, DSSpacing.medium)
         .background(Color(UIColor.systemBackground))
-    }
-
-    private func toolbarButton(
-        _ symbol: String,
-        label: String,
-        action: @escaping () -> Void
-    ) -> some View {
-        Button(action: action) {
-            toolbarIcon(symbol)
-        }
-        .accessibilityLabel(label)
-        .accessibilityHint("This action will be available in a later update")
     }
 
     private func toolbarIcon(_ symbol: String) -> some View {

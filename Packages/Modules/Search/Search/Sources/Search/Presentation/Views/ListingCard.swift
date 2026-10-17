@@ -3,13 +3,19 @@ import SwiftUI
 
 struct ListingCard: View {
     let listing: ListingDisplayModel
+    let isFavorite: Bool
+    let isFavoriteUpdating: Bool
+    let onFavorite: () -> Void
     let onAction: (String) -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            ListingImageCarousel(listing: listing) {
-                onAction("search_favorite_tapped")
-            }
+            ListingImageCarousel(
+                listing: listing,
+                isFavorite: isFavorite,
+                isFavoriteUpdating: isFavoriteUpdating,
+                onFavorite: onFavorite
+            )
 
             VStack(alignment: .leading, spacing: DSSpacing.xSmall) {
                 HStack(spacing: DSSpacing.xSmall) {

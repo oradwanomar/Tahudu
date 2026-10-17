@@ -33,6 +33,26 @@ import Testing
     try await manager.remove(forKey: key)
 }
 
+@Test func coreDataStrategyPersistsIndependentKeysAcrossManagers() async throws {
+    let url = FileManager.default.temporaryDirectory
+        .appendingPathComponent(UUID().uuidString)
+        .appendingPathComponent("Caching.sqlite")
+    defer { try? FileManager.default.removeItem(at: url.deletingLastPathComponent()) }
+
+    let first = CacheManager(strategy: .data(storeURL: url))
+    try await first.save(true, forKey: "favorite.one")
+    try await first.save(false, forKey: "favorite.two")
+
+    let second = CacheManager(strategy: .data(storeURL: url))
+    #expect(try await second.value(forKey: "favorite.one", as: Bool.self) == true)
+    #expect(try await second.value(forKey: "favorite.two", as: Bool.self) == false)
+
+    try await second.remove(forKey: "favorite.one")
+    let third = CacheManager(strategy: .data(storeURL: url))
+    #expect(try await third.value(forKey: "favorite.one", as: Bool.self) == nil)
+    #expect(try await third.value(forKey: "favorite.two", as: Bool.self) == false)
+}
+
 private struct CachedTestModel: Codable, Equatable {
     let name: String
     let count: Int

@@ -11,7 +11,8 @@ public enum SearchModuleFactory {
         analytics: any AnalyticsEventTracking
     ) -> some View {
         let repository = ListingRepository(client: client, cache: cache)
-        let useCase = SearchUseCase(repository: repository)
+        let favorites = FavoriteRepository(cache: cache)
+        let useCase = SearchUseCase(repository: repository, favorites: favorites)
         let viewModel = SearchViewModel(useCase: useCase, analytics: analytics)
         return SearchView(viewModel: viewModel)
     }

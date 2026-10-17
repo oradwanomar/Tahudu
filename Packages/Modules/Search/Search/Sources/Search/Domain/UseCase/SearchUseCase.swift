@@ -2,9 +2,14 @@ import Foundation
 
 public struct SearchUseCase: SearchUseCaseProtocol {
     private let repository: any ListingRepositoryProtocol
+    private let favorites: any FavoriteRepositoryProtocol
 
-    public init(repository: any ListingRepositoryProtocol) {
+    public init(
+        repository: any ListingRepositoryProtocol,
+        favorites: any FavoriteRepositoryProtocol
+    ) {
         self.repository = repository
+        self.favorites = favorites
     }
 
     public func fetchListings() async throws -> [ListingDisplayModel] {
@@ -25,6 +30,23 @@ public struct SearchUseCase: SearchUseCaseProtocol {
                 ) != nil
             }
         }
+    }
+
+    public func favoriteIDs(for listings: [ListingDisplayModel]) async throws -> Set<String> {
+        try await favorites.favoriteIDs(for: listings.map(\.id))
+    }
+
+    public func toggleFavorite(id: String, isCurrentlyFavorite: Bool) async throws -> Bool {
+        let isFavorite = !isCurrentlyFavorite
+        try await favorites.setFavorite(isFavorite, for: id)
+        return isFavorite
+    }
+
+    public func filterFavorites(
+        _ listings: [ListingDisplayModel],
+        favoriteIDs: Set<String>
+    ) -> [ListingDisplayModel] {
+        listings.filter { favoriteIDs.contains($0.id) }
     }
 
     private func map(_ listing: Listing, relativeTo now: Date) -> ListingDisplayModel {

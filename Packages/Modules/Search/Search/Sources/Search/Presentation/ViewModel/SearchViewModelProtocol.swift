@@ -18,10 +18,17 @@ public protocol SearchViewModelProtocol: ObservableObject {
     var searchText: String { get set }
     var listings: [ListingDisplayModel] { get }
     var sortOrder: ListingSortOrder { get }
+    var favoriteIDs: Set<String> { get }
+    var favoritesOnly: Bool { get }
+    var updatingFavoriteIDs: Set<String> { get }
+    var favoriteError: String? { get }
 
     func load() async
     func retry() async
     func submitSearch()
     func setSortOrder(_ order: ListingSortOrder)
+    func showFavoritesOnly(_ enabled: Bool)
+    func toggleFavorite(_ id: String) async
+    func dismissFavoriteError()
     func logAction(_ action: String, listingID: String?)
 }
