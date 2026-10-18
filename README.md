@@ -8,7 +8,7 @@
 
 | Platform | UI | Architecture | Persistence | Tests |
 | --- | --- | --- | --- | --- |
-| iOS 15+ | SwiftUI and UIKit | Local Swift packages with protocol-based dependencies | Core Data, Keychain, UserDefaults | Swift Testing and snapshot tests |
+| iOS 15+ | SwiftUI and UIKit | MVVM with clean archeticture and protocol-based dependencies | Core Data, Keychain, UserDefaults | Swift Testing and snapshot tests |
 
 > The original [Search screen reference](Screenshots/SearchScreen.png) is included in the repository. The implementation uses it as a visual starting point and adds live data, search, favorites, loading states, and accessibility.
 
