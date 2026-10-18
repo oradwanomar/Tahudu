@@ -19,6 +19,7 @@
 		A6B031E72F8A000100000001 /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EB2F8A000100000001 /* Analytics */; };
 		A6B031E82F8A000100000001 /* AnalyticsInterface in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EC2F8A000100000001 /* AnalyticsInterface */; };
 		A6B031F62F8A000100000001 /* Caching in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031F82F8A000100000001 /* Caching */; };
+		A6B031FB2F8A000100000001 /* netfox in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031FD2F8A000100000001 /* netfox */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 				A6B031E72F8A000100000001 /* Analytics in Frameworks */,
 				A6B031E82F8A000100000001 /* AnalyticsInterface in Frameworks */,
 				A6B031F62F8A000100000001 /* Caching in Frameworks */,
+				A6B031FB2F8A000100000001 /* netfox in Frameworks */,
 				044076043083B3E200297391 /* Settings in Frameworks */,
 				A6B031E42F8A000100000001 /* DesignSystem in Frameworks */,
 			);
@@ -208,6 +210,7 @@
 				044076013083B3DD00297391 /* Search */,
 				044076033083B3E200297391 /* Settings */,
 				044076053083B40600297391 /* Networking */,
+				A6B031FD2F8A000100000001 /* netfox */,
 			);
 			productName = Tahudu;
 			productReference = 1F479BA226EF162000F863AC /* Tahudu.app */;
@@ -267,6 +270,7 @@
 				A6B031E22F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Networking" */,
 				A6B031F92F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Caching" */,
 				A6B031FA2F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Modules/Settings/Settings" */,
+				A6B031FC2F8A000100000001 /* XCRemoteSwiftPackageReference "netfox" */,
 			);
 			productRefGroup = 1F479BA326EF162000F863AC /* Products */;
 			projectDirPath = "";
@@ -631,6 +635,17 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		A6B031FC2F8A000100000001 /* XCRemoteSwiftPackageReference "netfox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kasketis/netfox";
+			requirement = {
+				kind = exactVersion;
+				version = 1.21.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		044076013083B3DD00297391 /* Search */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -665,6 +680,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A6B031F92F8A000100000001 /* XCLocalSwiftPackageReference "Packages/Caching" */;
 			productName = Caching;
+		};
+		A6B031FD2F8A000100000001 /* netfox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A6B031FC2F8A000100000001 /* XCRemoteSwiftPackageReference "netfox" */;
+			productName = netfox;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

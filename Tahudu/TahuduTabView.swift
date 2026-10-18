@@ -22,28 +22,11 @@ struct TahuduTabView: View {
         self.analytics = analytics
         let appearance = UITabBarAppearance()
         appearance.configureWithTransparentBackground()
-        let normalColor = UIColor.lightGray
-        let selectedColor = DSUIColor.brand
-
-        for item in [
-            appearance.stackedLayoutAppearance,
-            appearance.inlineLayoutAppearance,
-            appearance.compactInlineLayoutAppearance,
-        ] {
-            item.normal.iconColor = normalColor
-            item.normal.titleTextAttributes = [.foregroundColor: normalColor]
-            item.selected.iconColor = selectedColor
-            item.selected.titleTextAttributes = [.foregroundColor: selectedColor]
-        }
 
         UITabBar.appearance().standardAppearance = appearance
-        UITabBar.appearance().tintColor = selectedColor
-        UITabBar.appearance().unselectedItemTintColor = normalColor
-        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: normalColor], for: .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: selectedColor], for: .selected)
-        if #available(iOS 15, *) {
-            UITabBar.appearance().scrollEdgeAppearance = appearance
-        }
+        UITabBar.appearance().tintColor = DSUIColor.brand
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: DSUIColor.brand],
+                                                         for: .selected)
     }
 
     var body: some View {
