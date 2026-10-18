@@ -30,3 +30,9 @@ Examples:
 For changes that need explanation, leave a blank line after the title and add a body describing the reason and any important behavior. Reference related issues in the body with `Refs #123` or `Closes #123` when applicable.
 
 Keep each commit focused on one change. Split unrelated changes into separate commits.
+
+## Local commit checks
+
+Run `git config core.hooksPath .githooks` once after cloning. The pre-commit hook scans staged changes with Gitleaks before running SwiftFormat. Required binaries are downloaded to the ignored `.build/tools` directory and verified with pinned checksums.
+
+To scan the existing commit history, run `$(.githooks/ensure-tool.sh gitleaks) git --redact --config .gitleaks.toml .` from the repository root.

@@ -1,0 +1,4 @@
+title = "Tahudu secret scanning"
+
+[extend]
+useDefault = true

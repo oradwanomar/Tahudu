@@ -2,4 +2,5 @@
 set -eu
 
 hook_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+"$hook_dir/gitleaks.sh"
 exec "$hook_dir/swiftformat.sh" format
