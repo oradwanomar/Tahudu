@@ -10,13 +10,12 @@ import SwiftUI
 
 @main
 struct TahuduApp: App {
-    private let appRoot: AppCompositionRoot
+    private let appRoot = AppCompositionRoot()
 
     init() {
         #if DEBUG
             NFX.sharedInstance().start()
         #endif
-        appRoot = AppCompositionRoot()
     }
 
     var body: some Scene {
