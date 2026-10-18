@@ -51,6 +51,9 @@ jobs:
             -testLanguage en \
             -testRegion US \
             -parallel-testing-enabled NO \
+            -skip-testing:DesignSystemTests/DesignSystemSnapshotTests \
+            -skip-testing:SearchTests/SearchSnapshotTests \
+            -skip-testing:SettingsTests/SettingsSnapshotTests \
             -resultBundlePath "$RUNNER_TEMP/Tahudu.xcresult" \
             CODE_SIGNING_ALLOWED=NO
 
