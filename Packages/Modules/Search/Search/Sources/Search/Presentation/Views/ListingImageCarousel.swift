@@ -79,6 +79,7 @@ struct ListingImageCarousel: View {
                 .disabled(isFavoriteUpdating)
                 .accessibilityLabel(isFavorite ? "Remove property from favorites" : "Add property to favorites")
                 .accessibilityValue(isFavorite ? "Favorite" : "Not favorite")
+                .accessibilityIdentifier("listing.favorite.\(listing.id)")
             }
             .padding(DSSpacing.small)
 

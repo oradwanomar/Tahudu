@@ -16,6 +16,8 @@
 		1F479BB726EF162400F863AC /* TahuduTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BB626EF162400F863AC /* TahuduTests.swift */; };
 		1F479BD926EF1A9600F863AC /* TahuduTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BD826EF1A9600F863AC /* TahuduTabView.swift */; };
 		A6B032022F8A000100000001 /* AppCompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B032032F8A000100000001 /* AppCompositionRoot.swift */; };
+		B7C100012F8A000100000001 /* UIFlowAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C100022F8A000100000001 /* UIFlowAPIClient.swift */; };
+		B7C100032F8A000100000001 /* SearchFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C100042F8A000100000001 /* SearchFlowUITests.swift */; };
 		A6B031E42F8A000100000001 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E62F8A000100000001 /* DesignSystem */; };
 		A6B031E72F8A000100000001 /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EB2F8A000100000001 /* Analytics */; };
 		A6B031E82F8A000100000001 /* AnalyticsInterface in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EC2F8A000100000001 /* AnalyticsInterface */; };
@@ -25,6 +27,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		1F479BB326EF162400F863AC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1F479B9A26EF162000F863AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F479BA126EF162000F863AC;
+			remoteInfo = Tahudu;
+		};
+		B7C100052F8A000100000001 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1F479B9A26EF162000F863AC /* Project object */;
 			proxyType = 1;
@@ -44,6 +53,9 @@
 		1F479BB626EF162400F863AC /* TahuduTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahuduTests.swift; sourceTree = "<group>"; };
 		1F479BD826EF1A9600F863AC /* TahuduTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahuduTabView.swift; sourceTree = "<group>"; };
 		A6B032032F8A000100000001 /* AppCompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCompositionRoot.swift; sourceTree = "<group>"; };
+		B7C100022F8A000100000001 /* UIFlowAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFlowAPIClient.swift; sourceTree = "<group>"; };
+		B7C100042F8A000100000001 /* SearchFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlowUITests.swift; sourceTree = "<group>"; };
+		B7C100062F8A000100000001 /* TahuduUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TahuduUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F479BE026EF1D3B00F863AC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A6B032002F8A000100000001 /* Tahudu.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tahudu.xctestplan; sourceTree = SOURCE_ROOT; };
 		A6B031F02F8A000100000001 /* Analytics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Analytics; path = Packages/Analytics; sourceTree = SOURCE_ROOT; };
@@ -70,6 +82,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		1F479BAF26EF162400F863AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B7C100072F8A000100000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -119,6 +138,7 @@
 				A6B031F42F8A000100000001 /* Packages */,
 				1F479BA426EF162000F863AC /* Tahudu */,
 				1F479BB526EF162400F863AC /* TahuduTests */,
+				B7C100082F8A000100000001 /* TahuduUITests */,
 				044076003083B3DD00297391 /* Frameworks */,
 				1F479BA326EF162000F863AC /* Products */,
 			);
@@ -129,6 +149,7 @@
 			children = (
 				1F479BA226EF162000F863AC /* Tahudu.app */,
 				1F479BB226EF162400F863AC /* TahuduTests.xctest */,
+				B7C100062F8A000100000001 /* TahuduUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,6 +161,7 @@
 				1F479BAB26EF162400F863AC /* Preview Content */,
 				1F479BA526EF162000F863AC /* TahuduApp.swift */,
 				A6B032032F8A000100000001 /* AppCompositionRoot.swift */,
+				B7C100022F8A000100000001 /* UIFlowAPIClient.swift */,
 				1F479BD826EF1A9600F863AC /* TahuduTabView.swift */,
 			);
 			path = Tahudu;
@@ -159,6 +181,14 @@
 				1F479BB626EF162400F863AC /* TahuduTests.swift */,
 			);
 			path = TahuduTests;
+			sourceTree = "<group>";
+		};
+		B7C100082F8A000100000001 /* TahuduUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B7C100042F8A000100000001 /* SearchFlowUITests.swift */,
+			);
+			path = TahuduUITests;
 			sourceTree = "<group>";
 		};
 		1F479BD026EF17F600F863AC /* Assets */ = {
@@ -239,6 +269,23 @@
 			productReference = 1F479BB226EF162400F863AC /* TahuduTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		B7C100092F8A000100000001 /* TahuduUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B7C1000A2F8A000100000001 /* Build configuration list for PBXNativeTarget "TahuduUITests" */;
+			buildPhases = (
+				B7C1000B2F8A000100000001 /* Sources */,
+				B7C100072F8A000100000001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B7C1000C2F8A000100000001 /* PBXTargetDependency */,
+			);
+			name = TahuduUITests;
+			productName = TahuduUITests;
+			productReference = B7C100062F8A000100000001 /* TahuduUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -254,6 +301,10 @@
 					};
 					1F479BB126EF162400F863AC = {
 						CreatedOnToolsVersion = 13.0;
+						TestTargetID = 1F479BA126EF162000F863AC;
+					};
+					B7C100092F8A000100000001 = {
+						CreatedOnToolsVersion = 26.5;
 						TestTargetID = 1F479BA126EF162000F863AC;
 					};
 				};
@@ -283,6 +334,7 @@
 			targets = (
 				1F479BA126EF162000F863AC /* Tahudu */,
 				1F479BB126EF162400F863AC /* TahuduTests */,
+				B7C100092F8A000100000001 /* TahuduUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -331,6 +383,7 @@
 			files = (
 				1F479BA626EF162000F863AC /* TahuduApp.swift in Sources */,
 				A6B032022F8A000100000001 /* AppCompositionRoot.swift in Sources */,
+				B7C100012F8A000100000001 /* UIFlowAPIClient.swift in Sources */,
 				1F479BD926EF1A9600F863AC /* TahuduTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +396,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B7C1000B2F8A000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B7C100032F8A000100000001 /* SearchFlowUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -350,6 +411,11 @@
 			isa = PBXTargetDependency;
 			target = 1F479BA126EF162000F863AC /* Tahudu */;
 			targetProxy = 1F479BB326EF162400F863AC /* PBXContainerItemProxy */;
+		};
+		B7C1000C2F8A000100000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1F479BA126EF162000F863AC /* Tahudu */;
+			targetProxy = B7C100052F8A000100000001 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -578,6 +644,50 @@
 			};
 			name = Release;
 		};
+		B7C1000D2F8A000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZC869D3D9T;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ae.propertyfinder.TahuduUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Tahudu;
+			};
+			name = Debug;
+		};
+		B7C1000E2F8A000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZC869D3D9T;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ae.propertyfinder.TahuduUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Tahudu;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -604,6 +714,15 @@
 			buildConfigurations = (
 				1F479BCA26EF162400F863AC /* Debug */,
 				1F479BCB26EF162400F863AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B7C1000A2F8A000100000001 /* Build configuration list for PBXNativeTarget "TahuduUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B7C1000D2F8A000100000001 /* Debug */,
+				B7C1000E2F8A000100000001 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

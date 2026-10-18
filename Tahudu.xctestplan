@@ -20,6 +20,13 @@
     {
       "target" : {
         "containerPath" : "container:Tahudu.xcodeproj",
+        "identifier" : "B7C100092F8A000100000001",
+        "name" : "TahuduUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Tahudu.xcodeproj",
         "identifier" : "1F479BB126EF162400F863AC",
         "name" : "TahuduTests"
       }

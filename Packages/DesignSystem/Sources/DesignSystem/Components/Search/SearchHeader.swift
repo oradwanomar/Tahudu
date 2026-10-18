@@ -78,6 +78,7 @@ public struct SearchHeader: View {
                     toolbarIcon(favoritesOnly ? "star.fill" : "star")
                 }
                 .accessibilityLabel(favoritesOnly ? "Show all properties" : "Show favorites only")
+                .accessibilityIdentifier("search.favorites.toggle")
             }
 
             HStack(spacing: DSSpacing.small) {
@@ -157,6 +158,7 @@ private struct SearchTextField: UIViewRepresentable {
         field.adjustsFontForContentSizeCategory = true
         field.returnKeyType = .search
         field.accessibilityLabel = "Search by city, area or building"
+        field.accessibilityIdentifier = "search.query"
         field.delegate = context.coordinator
         field.addTarget(context.coordinator, action: #selector(Coordinator.textChanged(_:)), for: .editingChanged)
 
