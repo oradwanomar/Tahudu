@@ -4,7 +4,11 @@ import SwiftUI
 @MainActor
 public enum SettingsModuleFactory {
     public static func make() -> some View {
-        SettingsView(viewModel: SettingsViewModel(coordinator: SettingsCoordinator()))
+        make(coordinator: SettingsCoordinator())
+    }
+
+    public static func make(coordinator: any SettingsCoordinatorProtocol) -> some View {
+        SettingsView(viewModel: SettingsViewModel(coordinator: coordinator))
             .background(DSColor.groupedBackground.ignoresSafeArea())
     }
 }

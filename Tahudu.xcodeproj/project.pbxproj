@@ -15,6 +15,7 @@
 		1F479BAD26EF162400F863AC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F479BAC26EF162400F863AC /* Preview Assets.xcassets */; };
 		1F479BB726EF162400F863AC /* TahuduTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BB626EF162400F863AC /* TahuduTests.swift */; };
 		1F479BD926EF1A9600F863AC /* TahuduTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F479BD826EF1A9600F863AC /* TahuduTabView.swift */; };
+		A6B032022F8A000100000001 /* AppCompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B032032F8A000100000001 /* AppCompositionRoot.swift */; };
 		A6B031E42F8A000100000001 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031E62F8A000100000001 /* DesignSystem */; };
 		A6B031E72F8A000100000001 /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EB2F8A000100000001 /* Analytics */; };
 		A6B031E82F8A000100000001 /* AnalyticsInterface in Frameworks */ = {isa = PBXBuildFile; productRef = A6B031EC2F8A000100000001 /* AnalyticsInterface */; };
@@ -42,6 +43,7 @@
 		1F479BB226EF162400F863AC /* TahuduTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TahuduTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F479BB626EF162400F863AC /* TahuduTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahuduTests.swift; sourceTree = "<group>"; };
 		1F479BD826EF1A9600F863AC /* TahuduTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahuduTabView.swift; sourceTree = "<group>"; };
+		A6B032032F8A000100000001 /* AppCompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCompositionRoot.swift; sourceTree = "<group>"; };
 		1F479BE026EF1D3B00F863AC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		A6B032002F8A000100000001 /* Tahudu.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tahudu.xctestplan; sourceTree = SOURCE_ROOT; };
 		A6B031F02F8A000100000001 /* Analytics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Analytics; path = Packages/Analytics; sourceTree = SOURCE_ROOT; };
@@ -137,6 +139,7 @@
 				1F479BD026EF17F600F863AC /* Assets */,
 				1F479BAB26EF162400F863AC /* Preview Content */,
 				1F479BA526EF162000F863AC /* TahuduApp.swift */,
+				A6B032032F8A000100000001 /* AppCompositionRoot.swift */,
 				1F479BD826EF1A9600F863AC /* TahuduTabView.swift */,
 			);
 			path = Tahudu;
@@ -327,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F479BA626EF162000F863AC /* TahuduApp.swift in Sources */,
+				A6B032022F8A000100000001 /* AppCompositionRoot.swift in Sources */,
 				1F479BD926EF1A9600F863AC /* TahuduTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

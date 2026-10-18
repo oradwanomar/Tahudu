@@ -3,7 +3,6 @@
 //  Tahudu
 //
 
-import DesignSystem
 import SwiftUI
 #if DEBUG
     import netfox
@@ -11,16 +10,18 @@ import SwiftUI
 
 @main
 struct TahuduApp: App {
+    private let appRoot: AppCompositionRoot
+
     init() {
         #if DEBUG
             NFX.sharedInstance().start()
         #endif
+        appRoot = AppCompositionRoot()
     }
 
     var body: some Scene {
         WindowGroup {
-            TahuduTabView()
-                .accentColor(DSColor.accent)
+            appRoot.makeRootView()
         }
     }
 }

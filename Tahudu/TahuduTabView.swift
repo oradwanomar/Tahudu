@@ -3,40 +3,32 @@
 //  Tahudu
 //
 
-import Analytics
 import AnalyticsInterface
-import Caching
 import DesignSystem
-import Networking
-import Search
-import Settings
 import SwiftUI
 
-struct TahuduTabView: View {
+struct TahuduTabView<Content: View>: View {
     @State private var selectedTab: Tabs = .search
     private let analytics: any AnalyticsEventTracking
+    private let content: (Tabs) -> Content
 
     init(
-        analytics: any AnalyticsEventTracking = AnalyticsEventTracker()
+        analytics: any AnalyticsEventTracking,
+        @ViewBuilder content: @escaping (Tabs) -> Content
     ) {
         self.analytics = analytics
+        self.content = content
     }
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            SearchModuleFactory.make(analytics: analytics)
-                .tag(Tabs.search)
-                .tabItem {
-                    Label("Search",
-                          systemImage: "magnifyingglass")
-                }
-
-            SettingsModuleFactory.make()
-                .tag(Tabs.settings)
-                .tabItem {
-                    Label("My Account",
-                          systemImage: selectedTab == .settings ? "person.fill" : "person")
-                }
+            ForEach(Tabs.allCases, id: \.self) { tab in
+                content(tab)
+                    .tag(tab)
+                    .tabItem {
+                        Label(tab.title, systemImage: tab.symbol(isSelected: selectedTab == tab))
+                    }
+            }
         }
         .accentColor(DSColor.brand)
         .onAppear {
@@ -63,12 +55,21 @@ enum Tabs: Int, CaseIterable {
     case search = 0
     case settings
 
-    var name: String {
+    var title: String {
         switch self {
         case .search:
             return "Search"
         case .settings:
-            return "Settings"
+            return "My Account"
+        }
+    }
+
+    func symbol(isSelected: Bool) -> String {
+        switch self {
+        case .search:
+            return "magnifyingglass"
+        case .settings:
+            return isSelected ? "person.fill" : "person"
         }
     }
 
@@ -84,6 +85,6 @@ enum Tabs: Int, CaseIterable {
 
 struct TahuduTabView_Previews: PreviewProvider {
     static var previews: some View {
-        TahuduTabView()
+        AppCompositionRoot().makeRootView()
     }
 }
