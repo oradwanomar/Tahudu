@@ -20,13 +20,6 @@ struct TahuduTabView: View {
         analytics: any AnalyticsEventTracking = AnalyticsEventTracker()
     ) {
         self.analytics = analytics
-        let appearance = UITabBarAppearance()
-        appearance.configureWithTransparentBackground()
-
-        UITabBar.appearance().standardAppearance = appearance
-        UITabBar.appearance().tintColor = DSUIColor.brand
-        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: DSUIColor.brand],
-                                                         for: .selected)
     }
 
     var body: some View {
@@ -34,13 +27,15 @@ struct TahuduTabView: View {
             SearchModuleFactory.make(analytics: analytics)
                 .tag(Tabs.search)
                 .tabItem {
-                    Label("Search", systemImage: "magnifyingglass")
+                    Label("Search",
+                          systemImage: "magnifyingglass")
                 }
 
             SettingsModuleFactory.make()
                 .tag(Tabs.settings)
                 .tabItem {
-                    Label("My Account", systemImage: selectedTab == .settings ? "person.fill" : "person")
+                    Label("My Account",
+                          systemImage: selectedTab == .settings ? "person.fill" : "person")
                 }
         }
         .accentColor(DSColor.brand)
@@ -48,14 +43,18 @@ struct TahuduTabView: View {
             trackSelectedTab()
         }
         .onChange(of: selectedTab) { _ in
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                            to: nil,
+                                            from: nil,
+                                            for: nil)
             trackSelectedTab()
         }
     }
 
     private func trackSelectedTab() {
         analytics.trackEvent(
-            AnalyticsEvent(name: "tab_viewed", parameters: ["tab": selectedTab.analyticsName])
+            AnalyticsEvent(name: "tab_viewed",
+                           parameters: ["tab": selectedTab.analyticsName])
         )
     }
 }

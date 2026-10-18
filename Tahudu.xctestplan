@@ -1,0 +1,70 @@
+{
+  "configurations" : [
+    {
+      "id" : "A6B03201-2F8A-4001-8000-000000000001",
+      "name" : "Default",
+      "options" : {
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Tahudu.xcodeproj",
+      "identifier" : "1F479BA126EF162000F863AC",
+      "name" : "Tahudu"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Tahudu.xcodeproj",
+        "identifier" : "1F479BB126EF162400F863AC",
+        "name" : "TahuduTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages/Analytics",
+        "identifier" : "AnalyticsTests",
+        "name" : "AnalyticsTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages/Caching",
+        "identifier" : "CachingTests",
+        "name" : "CachingTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages/DesignSystem",
+        "identifier" : "DesignSystemTests",
+        "name" : "DesignSystemTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages/Networking",
+        "identifier" : "NetworkingTests",
+        "name" : "NetworkingTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages/Modules/Search/Search",
+        "identifier" : "SearchTests",
+        "name" : "SearchTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages/Modules/Settings/Settings",
+        "identifier" : "SettingsTests",
+        "name" : "SettingsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

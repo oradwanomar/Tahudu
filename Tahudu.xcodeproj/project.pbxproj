@@ -43,6 +43,7 @@
 		1F479BB626EF162400F863AC /* TahuduTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahuduTests.swift; sourceTree = "<group>"; };
 		1F479BD826EF1A9600F863AC /* TahuduTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TahuduTabView.swift; sourceTree = "<group>"; };
 		1F479BE026EF1D3B00F863AC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		A6B032002F8A000100000001 /* Tahudu.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tahudu.xctestplan; sourceTree = SOURCE_ROOT; };
 		A6B031F02F8A000100000001 /* Analytics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Analytics; path = Packages/Analytics; sourceTree = SOURCE_ROOT; };
 		A6B031F12F8A000100000001 /* AnalyticsInterface */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AnalyticsInterface; path = Packages/AnalyticsInterface; sourceTree = SOURCE_ROOT; };
 		A6B031F22F8A000100000001 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DesignSystem; path = Packages/DesignSystem; sourceTree = SOURCE_ROOT; };
@@ -112,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				1F479BE026EF1D3B00F863AC /* README.md */,
+				A6B032002F8A000100000001 /* Tahudu.xctestplan */,
 				A6B031F42F8A000100000001 /* Packages */,
 				1F479BA426EF162000F863AC /* Tahudu */,
 				1F479BB526EF162400F863AC /* TahuduTests */,
