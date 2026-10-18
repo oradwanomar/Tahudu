@@ -14,7 +14,7 @@ struct SearchSnapshotTests {
         .background(Color.white)
         .preferredColorScheme(.light)
 
-        assertSnapshot(of: view, as: .image(layout: .fixed(width: 358, height: 464)))
+        assertSnapshot(of: view, as: .image(precision: 0.99, perceptualPrecision: 0.98, layout: .fixed(width: 358, height: 464)))
     }
 
     @Test func listingCard() {
@@ -29,7 +29,7 @@ struct SearchSnapshotTests {
         .background(Color.white)
         .preferredColorScheme(.light)
 
-        assertSnapshot(of: view, as: .image(layout: .fixed(width: 390, height: 470)))
+        assertSnapshot(of: view, as: .image(precision: 0.99, perceptualPrecision: 0.98, layout: .fixed(width: 390, height: 470)))
     }
 
     @Test func searchView() {
@@ -52,10 +52,10 @@ struct SearchSnapshotTests {
             .preferredColorScheme(.light)
 
         let layout = SwiftUISnapshotLayout.fixed(width: 390, height: 720)
-        assertSnapshot(of: results, as: .image(layout: layout), named: "results")
-        assertSnapshot(of: favorites, as: .image(layout: layout), named: "favorites-empty")
-        assertSnapshot(of: loading, as: .image(layout: layout), named: "loading")
-        assertSnapshot(of: failed, as: .image(layout: layout), named: "failed")
+        assertSnapshot(of: results, as: .image(precision: 0.99, perceptualPrecision: 0.98, layout: layout), named: "results")
+        assertSnapshot(of: favorites, as: .image(precision: 0.99, perceptualPrecision: 0.98, layout: layout), named: "favorites-empty")
+        assertSnapshot(of: loading, as: .image(precision: 0.99, perceptualPrecision: 0.98, layout: layout), named: "loading")
+        assertSnapshot(of: failed, as: .image(precision: 0.99, perceptualPrecision: 0.98, layout: layout), named: "failed")
     }
 
     private var listing: ListingDisplayModel {

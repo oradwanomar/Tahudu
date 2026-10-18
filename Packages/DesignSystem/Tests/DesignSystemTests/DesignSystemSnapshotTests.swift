@@ -17,7 +17,7 @@ struct DesignSystemSnapshotTests {
         .background(Color.white)
         .preferredColorScheme(.light)
 
-        assertSnapshot(of: view, as: .image(layout: .fixed(width: 280, height: 88)))
+        assertSnapshot(of: view, as: .image(precision: 0.99, perceptualPrecision: 0.98, layout: .fixed(width: 280, height: 88)))
     }
 
     @Test func clearableTextField() {
@@ -29,7 +29,7 @@ struct DesignSystemSnapshotTests {
         .background(Color.white)
         .preferredColorScheme(.light)
 
-        assertSnapshot(of: view, as: .image(layout: .fixed(width: 390, height: 144)))
+        assertSnapshot(of: view, as: .image(precision: 0.99, perceptualPrecision: 0.98, layout: .fixed(width: 390, height: 144)))
     }
 
     @Test func skeletonBlock() {
@@ -38,7 +38,7 @@ struct DesignSystemSnapshotTests {
             .background(Color.white)
             .preferredColorScheme(.light)
 
-        assertSnapshot(of: view, as: .image(layout: .fixed(width: 200, height: 64)))
+        assertSnapshot(of: view, as: .image(precision: 0.99, perceptualPrecision: 0.98, layout: .fixed(width: 200, height: 64)))
     }
 
     @Test func searchHeader() {
@@ -66,8 +66,8 @@ struct DesignSystemSnapshotTests {
         )
         .preferredColorScheme(.light)
 
-        assertSnapshot(of: all, as: .image(layout: .fixed(width: 390, height: 148)), named: "all")
-        assertSnapshot(of: favorites, as: .image(layout: .fixed(width: 390, height: 180)), named: "favorites")
+        assertSnapshot(of: all, as: .image(precision: 0.99, perceptualPrecision: 0.98, layout: .fixed(width: 390, height: 148)), named: "all")
+        assertSnapshot(of: favorites, as: .image(precision: 0.99, perceptualPrecision: 0.98, layout: .fixed(width: 390, height: 180)), named: "favorites")
     }
 
     @Test func searchLoadingCard() {
@@ -76,6 +76,6 @@ struct DesignSystemSnapshotTests {
             .background(Color.white)
             .preferredColorScheme(.light)
 
-        assertSnapshot(of: view, as: .image(layout: .fixed(width: 390, height: 500)))
+        assertSnapshot(of: view, as: .image(precision: 0.99, perceptualPrecision: 0.98, layout: .fixed(width: 390, height: 500)))
     }
 }

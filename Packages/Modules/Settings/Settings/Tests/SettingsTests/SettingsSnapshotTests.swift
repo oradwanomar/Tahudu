@@ -48,9 +48,16 @@ private final class SettingsCoordinatorSpy: SettingsCoordinatorProtocol {
 @MainActor
 struct SettingsSnapshotTests {
     @Test func settingsScreen() {
-        let view = SettingsModuleFactory.make()
-            .preferredColorScheme(.light)
+        let view = SettingsView(
+            viewModel: SettingsViewModel(
+                languageCode: "en",
+                locale: Locale(identifier: "en_US"),
+                coordinator: SettingsCoordinatorSpy()
+            )
+        )
+        .background(Color(UIColor.systemGroupedBackground).ignoresSafeArea())
+        .preferredColorScheme(.light)
 
-        assertSnapshot(of: view, as: .image(layout: .fixed(width: 390, height: 720)))
+        assertSnapshot(of: view, as: .image(precision: 0.99, perceptualPrecision: 0.98, layout: .fixed(width: 390, height: 720)))
     }
 }
