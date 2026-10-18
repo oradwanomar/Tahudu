@@ -3,7 +3,9 @@
 **A modular iOS app for discovering property listings.** Tahudu brings browsing, local search, sorting, and saved properties into one Search experience. A separate My Account module demonstrates how UIKit screens can live alongside SwiftUI features without placing feature code in the app target.
 
 <p align="center">
-  <img src="Screenshots/SearchScreen.png" alt="Original Search screen design reference" width="320">
+  <img src="Screenshots/Simulator Screenshot - iPhone Air - 2026-10-18 at 06.04.37.png" alt="Original Search screen design reference" width="300">
+  <img src="Screenshots/Simulator Screenshot - iPhone Air - 2026-10-18 at 06.04.52.png" alt="Original Search screen design reference" width="300">
+  <img src="Screenshots/Simulator Screenshot - iPhone Air - 2026-10-18 at 06.05.19.png" alt="Original Search screen design reference" width="300">
 </p>
 
 | Platform | UI | Architecture | Persistence | Tests |
