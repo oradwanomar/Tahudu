@@ -114,31 +114,6 @@ flowchart TB
 | [`AnalyticsInterface`](Packages/AnalyticsInterface) | Event and tracking protocol shared by features. |
 | [`Analytics`](Packages/Analytics) | An injectable tracker that currently records events with `OSLog`. |
 
-### Dependency direction inside Search
-
-Search follows presentation → use case → repository → infrastructure. The view observes a view model protocol; the view model calls a use case protocol; the use case depends on repository protocols; the listing repository depends on `APIClientProtocol` and `CacheManagerProtocol`. The module factory constructs the concrete graph in one place.
-
-```mermaid
-flowchart LR
-    View["SearchView"] --> VMContract["SearchViewModelProtocol"]
-    VM["SearchViewModel"] -. implements .-> VMContract
-    VM --> UCContract["SearchUseCaseProtocol"]
-    UC["SearchUseCase"] -. implements .-> UCContract
-    UC --> ListingContract["ListingRepositoryProtocol"]
-    UC --> FavoriteContract["FavoriteRepositoryProtocol"]
-    ListingRepo["ListingRepository"] -. implements .-> ListingContract
-    FavoriteRepo["FavoriteRepository"] -. implements .-> FavoriteContract
-    ListingRepo --> ClientContract["APIClientProtocol"]
-    ListingRepo --> CacheContract["CacheManagerProtocol"]
-    FavoriteRepo --> CacheContract
-    Client["APIClient"] -. implements .-> ClientContract
-    Cache["CacheManager"] -. implements .-> CacheContract
-```
-
-The use case maps domain `Listing` values into `ListingDisplayModel` values that the view needs. It also owns local search and favorites filtering. The view model holds screen state and applies the selected sort order. This keeps formatting and filtering away from the SwiftUI view.
-
-Settings uses a smaller graph: `SettingsView` wraps a UIKit navigation controller, `SettingsViewModel` supplies table rows, and `SettingsCoordinatorProtocol` handles row actions. The app injects a concrete coordinator through `SettingsModuleFactory`.
-
 ## Search data flow
 
 ### Loading and offline fallback
