@@ -4,6 +4,7 @@
       "id" : "A6B03201-2F8A-4001-8000-000000000001",
       "name" : "Default",
       "options" : {
+
       }
     }
   ],
@@ -25,42 +26,42 @@
     },
     {
       "target" : {
-        "containerPath" : "container:Packages/Analytics",
+        "containerPath" : "container:Packages\/Analytics",
         "identifier" : "AnalyticsTests",
         "name" : "AnalyticsTests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:Packages/Caching",
+        "containerPath" : "container:Packages\/Caching",
         "identifier" : "CachingTests",
         "name" : "CachingTests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:Packages/DesignSystem",
+        "containerPath" : "container:Packages\/DesignSystem",
         "identifier" : "DesignSystemTests",
         "name" : "DesignSystemTests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:Packages/Networking",
+        "containerPath" : "container:Packages\/Networking",
         "identifier" : "NetworkingTests",
         "name" : "NetworkingTests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:Packages/Modules/Search/Search",
+        "containerPath" : "container:Packages\/Modules\/Search\/Search",
         "identifier" : "SearchTests",
         "name" : "SearchTests"
       }
     },
     {
       "target" : {
-        "containerPath" : "container:Packages/Modules/Settings/Settings",
+        "containerPath" : "container:Packages\/Modules\/Settings\/Settings",
         "identifier" : "SettingsTests",
         "name" : "SettingsTests"
       }

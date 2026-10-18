@@ -42,40 +42,6 @@ final class SettingsViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
-        switch viewModel.sections[indexPath.section][indexPath.row].action {
-        case .language:
-            openSystemSettings()
-        case .country:
-            showCountrySelectionScreen()
-        case .notifications:
-            showNotificationScreen()
-        case .about:
-            showAboutScreen()
-        case .feedback:
-            showFeedbackScreen()
-        }
-    }
-}
-
-private extension SettingsViewController {
-    func openSystemSettings() {
-        print(#function)
-    }
-
-    func showCountrySelectionScreen() {
-        print(#function)
-    }
-
-    func showNotificationScreen() {
-        print(#function)
-    }
-
-    func showAboutScreen() {
-        print(#function)
-    }
-
-    func showFeedbackScreen() {
-        print(#function)
+        viewModel.selectRow(indexPath.row, in: indexPath.section)
     }
 }
