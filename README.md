@@ -235,6 +235,8 @@ Useful manual checks:
 
 Snapshot PNGs use Git LFS through [`.gitattributes`](.gitattributes). Follow the [commit guide](.github/COMMIT_GUIDE.md) for commit titles and the [pull request template](.github/pull_request_template.md) when proposing changes.
 
+The [iOS CI workflow](.github/workflows/ios-ci.yml) runs on pull requests and pushes to `main`. It checks formatting, scans committed history for secrets, and builds and runs the test plan with Xcode 26.5 on an iPhone 17 Pro simulator with iOS 26.5. It fetches Git LFS images before running snapshot tests.
+
 ## Extending the app
 
 - **Add a feature module:** Create a local Swift package under `Packages/Modules`, keep feature-specific presentation, domain, and data code inside it, and expose a small factory for the app composition root.
