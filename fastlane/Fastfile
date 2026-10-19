@@ -1,0 +1,35 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Run the CI test plan on iPhone 17 Pro"
+  lane :verify do
+    run_tests(
+      project: "Tahudu.xcodeproj",
+      scheme: "Tahudu",
+      testplan: "Tahudu",
+      destination: "platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5",
+      skip_testing: [
+        "DesignSystemTests/DesignSystemSnapshotTests",
+        "SearchTests/SearchSnapshotTests",
+        "SettingsTests/SettingsSnapshotTests"
+      ],
+      parallel_testing: false,
+      result_bundle_path: ENV["RUNNER_TEMP"] && File.join(ENV["RUNNER_TEMP"], "Tahudu.xcresult"),
+      output_style: "raw",
+      xcargs: "-testLanguage en -testRegion US CODE_SIGNING_ALLOWED=NO"
+    )
+  end
+
+  desc "Build the Release configuration for iOS Simulator"
+  lane :simulator_build do
+    sh(
+      "xcodebuild",
+      "build",
+      "-project", File.expand_path("../Tahudu.xcodeproj", __dir__),
+      "-scheme", "Tahudu",
+      "-configuration", "Release",
+      "-destination", "generic/platform=iOS Simulator",
+      "CODE_SIGNING_ALLOWED=NO"
+    )
+  end
+end

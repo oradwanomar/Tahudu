@@ -64,3 +64,7 @@ playground.xcworkspace
 
 # Swift Package Manager
 # Package.resolved
+
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/test_output/

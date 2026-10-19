@@ -47,6 +47,7 @@ The listing API is `https://simplejsoncms.com/api/m6nfoc4jlw`. It does not requi
 
 - macOS with Xcode and an iOS Simulator.
 - Git LFS for the reference images used by snapshot tests.
+- Ruby 3.2 or newer and Bundler for Fastlane commands.
 - Network access on first build to resolve the remote Swift packages and to fetch listings at runtime.
 
 The app deployment target is **iOS 15**. Package manifests use Swift tools 6.0 with Swift 5 language mode.
@@ -216,6 +217,18 @@ xcodebuild test \
 
 Snapshot reference images are tracked with Git LFS. Use the **iPhone 17 Pro simulator on iOS 26.5** when comparing those references. See the [snapshot testing guide](.github/SNAPSHOT_TESTING.md) for recording and updating images. Other simulator versions may produce visual differences.
 
+### Fastlane
+
+The [Fastfile](fastlane/Fastfile) provides two local commands. Install the pinned gems with Bundler, then run a lane from the repository root:
+
+```sh
+bundle install
+bundle exec fastlane ios verify
+bundle exec fastlane ios simulator_build
+```
+
+`verify` runs the shared test plan on iPhone 17 Pro with English (US) settings and skips the three snapshot suites. `simulator_build` builds the Release configuration for iOS Simulator without code signing. Snapshot tests remain available through Xcode or the commands in the snapshot testing guide. On Apple Silicon Macs where the system Ruby is older than 3.2, add Homebrew Ruby to `PATH` before running Bundler: `export PATH="/opt/homebrew/opt/ruby/bin:$PATH"`.
+
 ## Developer workflow
 
 The repository uses a shared [Git hook directory](.githooks). Set it once per clone:
@@ -235,7 +248,7 @@ Useful manual checks:
 
 Snapshot PNGs use Git LFS through [`.gitattributes`](.gitattributes). Follow the [commit guide](.github/COMMIT_GUIDE.md) for commit titles and the [pull request template](.github/pull_request_template.md) when proposing changes.
 
-The [iOS CI workflow](.github/workflows/ios-ci.yml) runs on pull requests and pushes to `main`. It checks formatting, scans committed history for secrets, and builds and runs the test plan with Xcode 26.5 on an iPhone 17 Pro simulator with iOS 26.5. It fetches Git LFS images before running snapshot tests.
+The [iOS CI workflow](.github/workflows/ios-ci.yml) runs on pull requests and pushes to `main`. It checks formatting, scans committed history for secrets, installs the locked Fastlane version, and runs the `verify` lane with Xcode 26.5. Every pull request also runs `simulator_build` to check the Release configuration. Snapshot suites are excluded from CI because their reference images vary across runner environments.
 
 ## Extending the app
 
