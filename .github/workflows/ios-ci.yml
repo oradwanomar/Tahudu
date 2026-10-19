@@ -41,21 +41,18 @@ jobs:
           gitleaks_bin=$(.githooks/ensure-tool.sh gitleaks)
           "$gitleaks_bin" git --redact --no-banner --config .gitleaks.toml --log-opts='--all' .
 
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+
       - name: Build and test
-        run: |
-          xcodebuild test \
-            -project Tahudu.xcodeproj \
-            -scheme Tahudu \
-            -testPlan Tahudu \
-            -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.5' \
-            -testLanguage en \
-            -testRegion US \
-            -parallel-testing-enabled NO \
-            -skip-testing:DesignSystemTests/DesignSystemSnapshotTests \
-            -skip-testing:SearchTests/SearchSnapshotTests \
-            -skip-testing:SettingsTests/SettingsSnapshotTests \
-            -resultBundlePath "$RUNNER_TEMP/Tahudu.xcresult" \
-            CODE_SIGNING_ALLOWED=NO
+        run: bundle exec fastlane ios verify
+
+      - name: Build Release configuration
+        if: github.event_name == 'pull_request'
+        run: bundle exec fastlane ios simulator_build
 
       - name: Upload test results
         if: failure()
