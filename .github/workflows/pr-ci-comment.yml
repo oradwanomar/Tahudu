@@ -1,0 +1,118 @@
+name: PR CI Comment
+
+on:
+  workflow_run:
+    workflows:
+      - iOS CI
+    types:
+      - completed
+
+permissions:
+  actions: read
+  issues: write
+
+jobs:
+  comment:
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion != 'cancelled'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post CI result
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const run = context.payload.workflow_run
+            const { owner, repo } = context.repo
+            const associated = run.pull_requests.length ? run.pull_requests : await github.paginate(
+              github.rest.repos.listPullRequestsAssociatedWithCommit,
+              { owner, repo, commit_sha: run.head_sha, per_page: 100 }
+            )
+            const pullRequest = associated[0]
+            if (!pullRequest) return
+
+            const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRunAttempt, {
+              owner,
+              repo,
+              run_id: run.id,
+              attempt_number: run.run_attempt,
+              per_page: 100
+            })
+            const artifacts = await github.paginate(github.rest.actions.listWorkflowRunArtifacts, {
+              owner,
+              repo,
+              run_id: run.id,
+              per_page: 100
+            })
+            const artifact = artifacts.find(item => item.name === 'Tahudu-test-summary' && !item.expired)
+            let summary
+            if (artifact) {
+              const { data } = await github.rest.actions.downloadArtifact({
+                owner,
+                repo,
+                artifact_id: artifact.id,
+                archive_format: 'zip'
+              })
+              const fs = require('fs')
+              const path = require('path')
+              const { execFileSync } = require('child_process')
+              const archive = path.join(process.env.RUNNER_TEMP, 'test-summary.zip')
+              fs.writeFileSync(archive, Buffer.from(data))
+              const content = execFileSync('unzip', ['-p', archive, 'test-summary.json'], {
+                encoding: 'utf8',
+                maxBuffer: 1024 * 1024
+              })
+              summary = JSON.parse(content)
+            }
+
+            const symbol = conclusion => ({
+              success: '✅',
+              failure: '❌',
+              cancelled: '⚪',
+              skipped: '⏭️'
+            })[conclusion] ?? '⚪'
+            const escapeMarkdown = value => String(value ?? '')
+              .replace(/[\r\n]+/g, ' ')
+              .replace(/[\\`*_{}\[\]()#+.!|>~-]/g, '\\$&')
+              .slice(0, 400)
+
+            const steps = jobs.flatMap(job => job.steps ?? [])
+              .filter(step => step.conclusion && step.conclusion !== 'skipped')
+              .map(step => `- ${symbol(step.conclusion)} ${step.name}`)
+            const tests = summary ? [
+              `Tests: ${summary.passedTests} passed, ${summary.failedTests} failed, ${summary.skippedTests} skipped`,
+              ...(summary.testFailures ?? []).slice(0, 10).map(failure =>
+                `- ❌ ${escapeMarkdown(failure.testName)}: ${escapeMarkdown(failure.failureText)}`
+              )
+            ] : ['Test results unavailable. See the workflow run for the step that stopped CI.']
+
+            const marker = '<!-- tahudu-ios-ci-result -->'
+            const body = [
+              marker,
+              `### iOS CI ${symbol(run.conclusion)} ${run.conclusion}`,
+              '',
+              ...tests,
+              '',
+              ...steps,
+              '',
+              `[View workflow run](${run.html_url})`
+            ].join('\n')
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner,
+              repo,
+              issue_number: pullRequest.number,
+              per_page: 100
+            })
+            const previous = comments.find(comment =>
+              comment.user?.type === 'Bot' && comment.body?.includes(marker)
+            )
+
+            if (previous) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: previous.id, body })
+            } else {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: pullRequest.number,
+                body
+              })
+            }

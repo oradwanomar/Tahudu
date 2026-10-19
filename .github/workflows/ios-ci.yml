@@ -50,9 +50,26 @@ jobs:
       - name: Build and test
         run: bundle exec fastlane ios verify
 
+      - name: Prepare test summary
+        if: always() && github.event_name == 'pull_request'
+        run: |
+          if [ -d "$RUNNER_TEMP/Tahudu.xcresult" ]; then
+            xcrun xcresulttool get test-results summary \
+              --path "$RUNNER_TEMP/Tahudu.xcresult" \
+              > "$RUNNER_TEMP/test-summary.json"
+          fi
+
       - name: Build Release configuration
         if: github.event_name == 'pull_request'
         run: bundle exec fastlane ios simulator_build
+
+      - name: Upload test summary
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Tahudu-test-summary
+          path: ${{ runner.temp }}/test-summary.json
+          if-no-files-found: ignore
 
       - name: Upload test results
         if: failure()
