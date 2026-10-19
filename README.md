@@ -1,5 +1,7 @@
 # Tahudu
 
+> **For reviewers:** [PR #1 — Fastlane and iOS CI](https://github.com/oradwanomar/Tahudu/pull/1) contains the Fastlane setup, pull request test workflow, and CI result reporting.
+
 **A modular iOS app for discovering property listings.** Tahudu brings browsing, local search, sorting, and saved properties into one Search experience. A separate My Account module demonstrates how UIKit screens can live alongside SwiftUI features without placing feature code in the app target.
 
 <p align="center">
